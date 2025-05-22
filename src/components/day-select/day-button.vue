@@ -1,13 +1,30 @@
 <script setup lang="ts">
+import { format, getDate, parseISO } from "date-fns";
+import { computed } from "vue";
+
 const props = defineProps<{
-	weekday: string;
-	day: number;
+	iso: string;
+	isActive: boolean;
 }>();
+const emits = defineEmits<{
+	(e: "pressed", iso: string): void;
+}>();
+
+const date = computed(() => parseISO(props.iso));
+const weekday = computed(() => format(date.value, "EEE"));
+const day = computed(() => getDate(date.value));
 </script>
 
 <template>
-	<div class="min-w-[3rem] rounded-sm border p-2 text-center">
-		<div>{{ props.weekday }}</div>
-		<div>{{ props.day }}</div>
-	</div>
+	<RouterLink
+		class="min-w-[3rem] rounded-sm border p-2 text-center"
+		:class="{
+			'bg-red-500': props.isActive,
+		}"
+		@click="emits('pressed', iso)"
+		:to="`/day/${iso}`"
+	>
+		<div>{{ weekday }}</div>
+		<div>{{ day }}</div>
+	</RouterLink>
 </template>

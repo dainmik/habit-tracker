@@ -3,17 +3,24 @@ import DayButton from "./day-button.vue";
 
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { addDays, format } from "date-fns";
+import { useRoute } from "vue-router";
 
 interface DateEntry {
-	date: Date;
 	iso: string;
-	day: number;
-	weekday: string;
 }
 
+const emits = defineEmits<{
+	(e: "dateSelected", iso: string): void;
+}>();
+
 const dateEntries = ref<DateEntry[]>([]);
+const currentDateISO = ref<string>();
 const scroller = ref<HTMLDivElement | null>(null);
 const sentinel = ref<HTMLDivElement | null>(null);
+
+const isActive = (iso: string) => iso === currentDateISO.value;
+
+const route = useRoute();
 
 const BUFFER_DAYS = 7;
 let offset = 0;
@@ -22,10 +29,7 @@ function generateDates(startOffset: number, count: number): DateEntry[] {
 	return Array.from({ length: count }, (_, i) => {
 		const date = addDays(new Date(), startOffset + i);
 		return {
-			date,
 			iso: format(date, "yyyy-MM-dd"),
-			day: date.getDate(),
-			weekday: format(date, "EEE"),
 		};
 	});
 }
@@ -40,6 +44,8 @@ let observer: IntersectionObserver | null = null;
 
 onMounted(() => {
 	loadDates();
+	currentDateISO.value =
+		(route.params.iso as string) || dateEntries.value[0].iso;
 
 	if (!sentinel.value || !scroller.value) {
 		return;
@@ -70,8 +76,14 @@ onBeforeUnmount(() => {
 		<DayButton
 			v-for="entry in dateEntries"
 			:key="entry.iso"
-			:weekday="entry.weekday"
-			:day="entry.day"
+			:iso="entry.iso"
+			:is-active="isActive(entry.iso)"
+			@pressed="
+				(iso) => {
+					currentDateISO = iso;
+					emits('dateSelected', iso);
+				}
+			"
 		/>
 
 		<div ref="sentinel" class="h-full w-[1px]"></div>

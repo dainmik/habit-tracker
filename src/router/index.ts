@@ -6,7 +6,10 @@ const router = createRouter({
 	routes: [
 		{
 			path: "/",
-			name: "home",
+			component: HomeView,
+		},
+		{
+			path: "/day/:iso",
 			component: HomeView,
 		},
 	],
