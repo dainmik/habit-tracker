@@ -11,6 +11,7 @@ const router = createRouter({
 		{
 			path: "/day/:iso",
 			component: HomeView,
+			props: true,
 		},
 	],
 });
