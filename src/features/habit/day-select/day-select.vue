@@ -1,0 +1,133 @@
+<script setup lang="ts">
+import DayButton from "@/features/habit/day-select/day-button.vue";
+import { useDateRange } from "@/features/habit/day-select/use-date-range";
+import { useInfiniteScroll } from "@/features/habit/day-select/use-infinite-scroll";
+import { convertDateToIso, parseISO, type HabitDate } from "@/lib/date";
+import { ICONS } from "@/lib/icons";
+import { Icon } from "@iconify/vue";
+import { ref, useTemplateRef, watch } from "vue";
+
+const props = defineProps<{ selectedDate: HabitDate }>();
+const emits = defineEmits<{
+	dateSelected: [date: HabitDate];
+}>();
+
+const selectedDate = ref(props.selectedDate);
+watch(
+	() => props.selectedDate,
+	(newDate) => {
+		selectedDate.value = newDate;
+	},
+);
+
+const scroller = ref<HTMLElement>();
+const startSentinel = ref<HTMLElement>();
+const endSentinel = ref<HTMLElement>();
+const itemsRefs = useTemplateRef("items");
+
+const { dates, addAfter, addBefore } = useDateRange(
+	itemsRefs,
+	selectedDate.value,
+);
+
+useInfiniteScroll(
+	scroller,
+	startSentinel,
+	endSentinel,
+	() => {
+		const first = dates.value.at(0);
+		if (first) {
+			addBefore(first);
+		}
+	},
+	() => {
+		const last = dates.value.at(-1);
+		if (last) {
+			addAfter(last);
+		}
+	},
+);
+
+function scrollByPage(direction: "left" | "right") {
+	const container = scroller.value;
+	const items = itemsRefs.value; // itemsRefs is from useTemplateRef("items")
+
+	if (!container || !items?.length) return;
+
+	// Assume all day buttons have roughly equal width, take the first
+	const childWidth = (items[0] as HTMLElement).offsetWidth;
+	const gap = 4; // Tailwind gap-1 = 4px
+	const totalChildWidth = childWidth + gap;
+
+	// Number of fully visible items
+	const visibleCount = Math.floor(container.clientWidth / totalChildWidth);
+
+	const scrollDistance = totalChildWidth * visibleCount;
+
+	container.scrollBy({
+		left: direction === "right" ? scrollDistance : -scrollDistance,
+		behavior: "smooth",
+	});
+}
+</script>
+
+<template>
+	<div>
+		<div>
+			{{
+				// TODO: this should be encapsulated into the date library as well.
+				selectedDate.toLocaleDateString(undefined, {
+					year: "numeric",
+					month: "long",
+				})
+			}}
+		</div>
+		<nav class="flex w-full items-center gap-4 overflow-hidden">
+			<button @click="scrollByPage('left')">
+				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0 rotate-180" />
+			</button>
+
+			<div class="relative flex-grow overflow-hidden">
+				<ul
+					ref="scroller"
+					class="fade-scroll-mask scrollbar-none flex gap-1 overflow-x-auto p-2"
+				>
+					<div ref="startSentinel" class="h-full w-[1px]"></div>
+
+					<li v-for="iso in dates" :key="iso" ref="items" class="flex">
+						<DayButton
+							:iso="iso"
+							:is-active="iso === convertDateToIso(selectedDate)"
+							@pressed="
+								(iso) => {
+									selectedDate = parseISO(iso);
+									emits('dateSelected', parseISO(iso));
+								}
+							"
+						/>
+					</li>
+
+					<div ref="endSentinel" class="h-full w-[1px]"></div>
+				</ul>
+			</div>
+
+			<button @click="scrollByPage('right')">
+				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0" />
+			</button>
+		</nav>
+	</div>
+</template>
+
+<style scoped>
+.fade-scroll-mask {
+	mask-image: linear-gradient(
+		to right,
+		transparent,
+		black 24px,
+		black calc(100% - 24px),
+		transparent
+	);
+	mask-size: 100% 100%;
+	mask-repeat: no-repeat;
+}
+</style>

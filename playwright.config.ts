@@ -1,5 +1,5 @@
-import process from "node:process";
 import { defineConfig, devices } from "@playwright/test";
+import process from "node:process";
 
 /**
  * Read environment variables from file.
@@ -10,6 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+// eslint-disable-next-line import-x/no-default-export
 export default defineConfig({
 	testDir: "./e2e",
 	/* Maximum time one test can run for. */
