@@ -58,7 +58,7 @@ const iconInfo = (habit: HabitViewModel) => {
 				'bg-red-500/30': !habit.wasCompleted,
 			}"
 		>
-			<div class="flex items-center justify-between">
+			<div class="flex items-center justify-between text-start">
 				{{ habit.name }}
 				<Icon
 					:icon="ICONS.arrowHeadRight"
