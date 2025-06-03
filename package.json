@@ -10,7 +10,7 @@
 		"test:e2e": "playwright test",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build",
-		"lint": "eslint . --fix",
+		"lint": "eslint . --fix && pnpm stylelint \"src/**/*.{vue,css}\" --fix",
 		"format": "prettier --write src/",
 		"bootstrap": "pnpm exec playwright install-deps && pnpm exec playwright install"
 	},
@@ -53,6 +53,9 @@
 		"npm-run-all2": "^7.0.2",
 		"prettier": "3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"stylelint": "^16.20.0",
+		"stylelint-config-recommended": "^16.0.0",
+		"stylelint-config-recommended-vue": "^1.6.0",
 		"tailwindcss": "^4.1.7",
 		"typescript": "~5.8.0",
 		"vite": "^6.2.4",

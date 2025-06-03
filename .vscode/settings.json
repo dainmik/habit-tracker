@@ -14,6 +14,7 @@
 		"*.css": "tailwindcss"
 	},
 	"javascript.preferences.importModuleSpecifier": "non-relative",
+	"stylelint.validate": ["css", "tailwindcss", "vue"],
 	"tailwindCSS.classFunctions": ["cn", "cva"],
 	"typescript.preferences.importModuleSpecifier": "non-relative"
 }

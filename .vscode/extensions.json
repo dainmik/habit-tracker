@@ -5,6 +5,7 @@
 		"dbaeumer.vscode-eslint",
 		"vue.volar",
 		"editorconfig.editorconfig",
-		"bradlc.vscode-tailwindcss"
+		"bradlc.vscode-tailwindcss",
+		"stylelint.vscode-stylelint"
 	]
 }

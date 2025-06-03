@@ -21,7 +21,8 @@
 				"Vue.volar",
 				"ms-playwright.playwright",
 				"EditorConfig.EditorConfig",
-				"bradlc.vscode-tailwindcss"
+				"bradlc.vscode-tailwindcss",
+				"stylelint.vscode-stylelint"
 			]
 		}
 	}
