@@ -11,6 +11,10 @@ import {
 } from "reka-ui";
 import DialogOverlay from "./dialog-overlay.vue";
 
+defineOptions({
+	inheritAttrs: false,
+});
+
 const props = defineProps<DialogContentProps>();
 const emits = defineEmits<DialogContentEmits>();
 
