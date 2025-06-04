@@ -50,7 +50,9 @@ const {
 
 	<AddHabitFormDrawer header-label="New habit" @submit="addHabit">
 		<template #trigger="{ open }">
-			<Button @click="open">Add Habit</Button>
+			<div class="mt-auto w-full">
+				<Button size="full" @click="open">Add Habit</Button>
+			</div>
 		</template>
 	</AddHabitFormDrawer>
 </template>

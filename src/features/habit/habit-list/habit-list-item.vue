@@ -5,7 +5,7 @@ import { ICONS } from "@/lib/icons";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 
 defineProps<{
 	date: DateType;
@@ -16,11 +16,13 @@ defineProps<{
 	onDelete: (id: string) => void;
 }>();
 
+const itemRef = useTemplateRef("item");
 const expandedItemID = ref("");
 
 const handleToggleExpanded = (id: string) => {
 	const value = expandedItemID.value === id ? "" : id;
 	expandedItemID.value = value;
+	itemRef.value?.scrollIntoView({ behavior: "smooth" });
 };
 
 const isExpanded = (habitID: string) => expandedItemID.value === habitID;
@@ -44,6 +46,7 @@ const iconInfo = (habit: HabitViewModel) => {
 </script>
 <template>
 	<button
+		ref="item"
 		class="h-full w-full rounded-2xl border"
 		:aria-label="habit.name"
 		:class="{
@@ -62,7 +65,10 @@ const iconInfo = (habit: HabitViewModel) => {
 				{{ habit.name }}
 				<Icon
 					:icon="ICONS.arrowHeadRight"
-					:class="[isExpanded(habit.id) ? 'rotate-90' : 'rotate-180']"
+					:class="[
+						isExpanded(habit.id) ? 'rotate-90' : 'rotate-180',
+						'transition-transform',
+					]"
 				/>
 			</div>
 

@@ -99,8 +99,11 @@ function scrollByPage(direction: "left" | "right") {
 				})
 			}}
 		</div>
-		<nav class="flex w-full items-center gap-4 overflow-hidden">
-			<button @click="scrollByPage('left')">
+		<nav class="flex w-full items-center gap-2">
+			<button
+				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
+				@click="scrollByPage('left')"
+			>
 				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0 rotate-180" />
 			</button>
 
@@ -140,7 +143,10 @@ function scrollByPage(direction: "left" | "right") {
 				</RovingFocusGroup>
 			</div>
 
-			<button @click="scrollByPage('right')">
+			<button
+				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
+				@click="scrollByPage('right')"
+			>
 				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0" />
 			</button>
 		</nav>
