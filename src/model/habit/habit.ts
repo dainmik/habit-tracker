@@ -10,6 +10,10 @@ import {
 	type HabitDate,
 } from "@/lib/date";
 import { Entity } from "@/model/entity";
+import {
+	ToggleHabitCompletionError,
+	ToggleHabitStatusError,
+} from "@/model/habit/errors";
 import type { HabitPersistenceModel } from "@/model/habit/habit-persistence-model";
 import { HabitRecord } from "@/model/habit/habit-record";
 import {
@@ -70,23 +74,34 @@ export class Habit extends Entity {
 	}
 
 	toggleStatus(date: HabitDate) {
-		if (!this.canToggleStatus(date)) return;
+		if (!this.canToggleStatus(date)) {
+			throw new ToggleHabitStatusError({
+				habitId: this.id,
+				date,
+			});
+		}
 
-		const current = this.getStatusOn(date);
-		const next: HabitStatus = current === "active" ? "paused" : "active";
+		const currentStatus = this.getStatusOn(date);
+		const nextStatus: HabitStatus =
+			currentStatus === "active" ? "paused" : "active";
 
 		const existingStatusChangeForDate = this.statusChanges.find(
 			(item) => item.date.toISOString() === date.toISOString(),
 		);
 		if (existingStatusChangeForDate) {
-			existingStatusChangeForDate.status = next;
+			existingStatusChangeForDate.status = nextStatus;
 		} else {
-			this.statusChanges.push(new HabitStatusChange(this.id, date, next));
+			this.statusChanges.push(new HabitStatusChange(this.id, date, nextStatus));
 		}
 	}
 
 	toggleCompletion(date: HabitDate) {
-		if (!this.canToggleCompletion(date)) return;
+		if (!this.canToggleCompletion(date)) {
+			throw new ToggleHabitCompletionError({
+				habitId: this.id,
+				date,
+			});
+		}
 
 		const existing = this.records.find((r) => isSameDay(r.date, date));
 		if (existing) {

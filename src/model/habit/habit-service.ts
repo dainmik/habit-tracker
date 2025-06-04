@@ -5,17 +5,26 @@ import {
 	parseISO,
 	type HabitDate,
 } from "@/lib/date";
+import {
+	HabitNotFoundError,
+	ToggleHabitCompletionError,
+	ToggleHabitStatusError,
+} from "@/model/habit/errors";
 import { Habit, type WeekRepeat } from "@/model/habit/habit";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
-import { HabitMapper } from "@/model/habit/habit-mapper";
 import type { HabitRepository } from "@/model/habit/habit-repository";
+import { habitToViewModel } from "@/model/habit/habit-view-model";
 import { differenceInDays, differenceInWeeks } from "date-fns";
 
 function getWeekday(date: Date): string {
 	return date.toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
 }
 
-function isHabitDueOn(habit: Habit, target: HabitDate): boolean {
+/**
+ * This function will get messy if we need to add more rules.
+ * TODO: Consider refactoring when touching this code.
+ */
+function isHabitDueOn(habit: Habit, target: HabitDate) {
 	const repeat = habit.schedule.repeat;
 	const start = parseISO(habit.schedule.startDate);
 
@@ -25,14 +34,12 @@ function isHabitDueOn(habit: Habit, target: HabitDate): boolean {
 
 	const duration = repeat.duration;
 
-	// Check end date duration
 	if (duration.type === "untilDate") {
 		const end = parseISO(duration.endDate);
 		if (isBefore(end, target)) return false;
 	}
 
-	// Helper to check if a day matches the schedule
-	const isMatch = (date: Date): boolean => {
+	const isMatch = (date: Date) => {
 		if (repeat.type === "day") {
 			// TODO: encapsulate these date-fns functions into date.ts lib
 			const days = differenceInDays(date, start);
@@ -59,7 +66,6 @@ function isHabitDueOn(habit: Habit, target: HabitDate): boolean {
 				if (count >= max) return false;
 			}
 
-			// Step by day for week/day mode
 			current = addDays(current, 1);
 		}
 
@@ -72,17 +78,25 @@ function isHabitDueOn(habit: Habit, target: HabitDate): boolean {
 export class HabitService {
 	constructor(private repository: HabitRepository) {}
 
+	getHabit(id: string) {
+		const habit = this.repository.get(id);
+		if (!habit) {
+			throw new HabitNotFoundError({ habitId: id });
+		}
+		return habit;
+	}
+
 	getHabits(date: HabitDate) {
 		return this.repository
 			.getAll()
-			.map((habit) => HabitMapper.toViewModel(habit, date));
+			.map((habit) => habitToViewModel(habit, date));
 	}
 
 	getHabitsDueOnDate(date: HabitDate) {
 		return this.repository
 			.getAll()
 			.filter((habit) => isHabitDueOn(habit, date))
-			.map((habit) => HabitMapper.toViewModel(habit, date));
+			.map((habit) => habitToViewModel(habit, date));
 	}
 
 	addHabit(item: HabitInputModel) {
@@ -100,10 +114,14 @@ export class HabitService {
 	}
 
 	toggleStatus(id: string, date: HabitDate) {
-		const habit = this.repository.get(id);
-		if (!habit) return;
+		const habit = this.getHabit(id);
 
-		if (!habit.canToggleStatus(date)) return;
+		if (!habit.canToggleStatus(date)) {
+			throw new ToggleHabitStatusError({
+				habitId: id,
+				date,
+			});
+		}
 
 		habit.toggleStatus(date);
 
@@ -111,10 +129,14 @@ export class HabitService {
 	}
 
 	toggleCompletion(id: string, date: HabitDate) {
-		const habit = this.repository.get(id);
-		if (!habit) return;
+		const habit = this.getHabit(id);
 
-		if (!habit.canToggleCompletion(date)) return;
+		if (!habit.canToggleCompletion(date)) {
+			throw new ToggleHabitCompletionError({
+				habitId: id,
+				date,
+			});
+		}
 
 		habit.toggleCompletion(date);
 

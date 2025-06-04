@@ -1,0 +1,50 @@
+import type { HabitDate } from "@/lib/date";
+import { HabitError } from "@/model/error";
+
+interface ToggleHabitStatusErrorParams {
+	habitId: string;
+	date: HabitDate;
+}
+
+export class ToggleHabitStatusError extends HabitError {
+	habitId: string;
+	date: HabitDate;
+
+	constructor({ habitId, date }: ToggleHabitStatusErrorParams) {
+		super("Couldn't toggle habit status.");
+		this.name = "ToggleHabitStatusError";
+		this.habitId = habitId;
+		this.date = date;
+	}
+}
+
+interface ToggleHabitCompletionErrorParams {
+	habitId: string;
+	date: HabitDate;
+}
+
+export class ToggleHabitCompletionError extends HabitError {
+	habitId: string;
+	date: HabitDate;
+
+	constructor({ habitId, date }: ToggleHabitCompletionErrorParams) {
+		super("Couldn't toggle habit completion.");
+		this.name = "ToggleHabitCompletionError";
+		this.habitId = habitId;
+		this.date = date;
+	}
+}
+
+interface HabitNotFoundErrorParams {
+	habitId: string;
+}
+
+export class HabitNotFoundError extends HabitError {
+	habitId: string;
+
+	constructor({ habitId }: HabitNotFoundErrorParams) {
+		super("Habit not found.");
+		this.name = "HabitNotFoundError";
+		this.habitId = habitId;
+	}
+}
