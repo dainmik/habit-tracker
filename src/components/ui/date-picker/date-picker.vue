@@ -3,6 +3,7 @@ import {
 	DateFormatter,
 	type DateValue,
 	getLocalTimeZone,
+	parseDate,
 } from "@internationalized/date";
 import { CalendarIcon } from "lucide-vue-next";
 
@@ -14,11 +15,18 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const model = defineModel<string>();
 
 const value = ref<DateValue>();
+
+onMounted(() => {
+	if (!model.value) {
+		return;
+	}
+	value.value = parseDate(model.value);
+});
 
 watch(value, (newValue) => {
 	model.value = newValue?.toString();

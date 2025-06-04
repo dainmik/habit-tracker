@@ -26,6 +26,7 @@ Habit list:
 Add/edit habit forms:
 
 - [ ] Client-side (presentation layer) and server-side (application layer) validation for add/edit habit forms
+- [ ] Isolate focus to the date picker so that pressing outside of it closes the picker and does not click other input fields
 
 Habit deletion:
 
