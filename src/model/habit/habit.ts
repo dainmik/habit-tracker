@@ -21,14 +21,17 @@ import {
 	type HabitStatus,
 } from "@/model/habit/habit-status-change";
 
-export type Weekday =
-	| "monday"
-	| "tuesday"
-	| "wednesday"
-	| "thursday"
-	| "friday"
-	| "saturday"
-	| "sunday";
+export const WEEKDAYS = [
+	"monday",
+	"tuesday",
+	"wednesday",
+	"thursday",
+	"friday",
+	"saturday",
+	"sunday",
+] as const;
+
+export type Weekday = (typeof WEEKDAYS)[number];
 
 export type Duration =
 	| { type: "forever" }

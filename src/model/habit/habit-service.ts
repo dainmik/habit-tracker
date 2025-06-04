@@ -1,5 +1,7 @@
 import {
 	addDays,
+	addWeeks,
+	isAfter,
 	isBefore,
 	isSameDay,
 	parseISO,
@@ -10,14 +12,16 @@ import {
 	ToggleHabitCompletionError,
 	ToggleHabitStatusError,
 } from "@/model/habit/errors";
-import { Habit, type WeekRepeat } from "@/model/habit/habit";
+import { Habit, WEEKDAYS, type WeekRepeat } from "@/model/habit/habit";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitRepository } from "@/model/habit/habit-repository";
 import { habitToViewModel } from "@/model/habit/habit-view-model";
-import { differenceInDays, differenceInWeeks } from "date-fns";
+import { differenceInDays } from "date-fns";
 
-function getWeekday(date: Date): string {
-	return date.toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
+function getWeekday(date: Date) {
+	return date
+		.toLocaleDateString("en-US", { weekday: "long" })
+		.toLowerCase() as WeekRepeat["daysOfWeek"][number];
 }
 
 /**
@@ -26,10 +30,10 @@ function getWeekday(date: Date): string {
  */
 function isHabitDueOn(habit: Habit, targetDate: DateType) {
 	const repeat = habit.schedule.repeat;
-	const startDate = parseISO(habit.schedule.startDate);
-	const startAndTargetAreSameDay = isSameDay(targetDate, startDate);
+	const habitStartDate = parseISO(habit.schedule.startDate);
+	const startAndTargetAreSameDay = isSameDay(targetDate, habitStartDate);
 
-	if (isBefore(targetDate, startDate)) {
+	if (isBefore(targetDate, habitStartDate)) {
 		return false;
 	}
 
@@ -39,51 +43,59 @@ function isHabitDueOn(habit: Habit, targetDate: DateType) {
 
 	const duration = repeat.duration;
 
+	const handleRepeatFrequency = (date: DateType) => {
+		// TODO: encapsulate date-fns functions into date.ts library
+		if (repeat.type === "day") {
+			const dayDifference = differenceInDays(date, habitStartDate);
+			return dayDifference % repeat.everyNumberOfDays === 0;
+		} else {
+			const weekday = getWeekday(date);
+			const repeatWeekdays =
+				repeat.daysOfWeek.length > 0 ? repeat.daysOfWeek : WEEKDAYS;
+
+			if (!repeatWeekdays.includes(weekday)) {
+				return false;
+			}
+
+			const dayDifference = differenceInDays(
+				addWeeks(habitStartDate, repeat.everyNumberOfWeeks),
+				habitStartDate,
+			);
+
+			return dayDifference % repeat.everyNumberOfWeeks === 0;
+		}
+	};
+
 	if (duration.type === "untilDate") {
-		const end = parseISO(duration.endDate);
-		if (isBefore(end, targetDate)) {
+		const habitEndDate = parseISO(duration.endDate);
+		if (isAfter(targetDate, habitEndDate)) {
 			return false;
 		}
 	}
 
-	const isMatch = (date: Date) => {
-		if (repeat.type === "day") {
-			// TODO: encapsulate these date-fns functions into date.ts lib
-			const days = differenceInDays(date, startDate);
-			return days % repeat.everyNumberOfDays === 0;
-		} else {
-			const weeks = differenceInWeeks(date, startDate);
-			const weekday = getWeekday(date);
-			return (
-				weeks % repeat.everyNumberOfWeeks === 0 &&
-				repeat.daysOfWeek.includes(weekday as WeekRepeat["daysOfWeek"][number])
-			);
-		}
-	};
-
 	if (duration.type === "afterOccurrences") {
-		let count = 0;
-		let current = startDate;
-		const max = duration.count;
+		let occurrenceCount = 0;
+		let currentDate = habitStartDate;
+		const maxOccurences = duration.count;
 
-		while (!isBefore(targetDate, current)) {
-			if (isMatch(current)) {
-				count++;
-				if (isSameDay(current, targetDate)) {
+		while (!isBefore(targetDate, currentDate)) {
+			if (handleRepeatFrequency(currentDate)) {
+				occurrenceCount++;
+				if (isSameDay(currentDate, targetDate)) {
 					return true;
 				}
-				if (count >= max) {
+				if (occurrenceCount >= maxOccurences) {
 					return false;
 				}
 			}
 
-			current = addDays(current, 1);
+			currentDate = addDays(currentDate, 1);
 		}
 
 		return false;
 	}
 
-	return isMatch(targetDate);
+	return handleRepeatFrequency(targetDate);
 }
 
 export class HabitService {

@@ -1,6 +1,7 @@
 import {
 	addDays as _addDays,
 	addMonths as _addMonths,
+	addWeeks as _addWeeks,
 	getDate as _getDate,
 	isAfter as _isAfter,
 	isBefore as _isBefore,
@@ -35,6 +36,10 @@ export function convertDateToIso(date: DateType): IsoDateString {
 
 export function addDays(date: DateType, number: number) {
 	return _addDays(date, number, timeZoneOptions);
+}
+
+export function addWeeks(date: DateType, number: number) {
+	return _addWeeks(date, number, timeZoneOptions);
 }
 
 export function addMonths(date: DateType, number: number) {
