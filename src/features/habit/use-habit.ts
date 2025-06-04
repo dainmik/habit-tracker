@@ -1,5 +1,5 @@
 import { useBroadcastSync } from "@/features/habit/use-broadcast-sync";
-import type { HabitDate } from "@/lib/date";
+import type { DateType } from "@/lib/date";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import { HabitService } from "@/model/habit/habit-service";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
@@ -8,7 +8,7 @@ import { shallowRef, watchEffect, type Ref } from "vue";
 
 const service = new HabitService(new LocalStorageHabitRepository());
 
-export function useHabits(date: Ref<HabitDate>) {
+export function useHabits(date: Ref<DateType>) {
 	const sync = useBroadcastSync("habit-sync");
 
 	sync.subscribe(({ type }) => {
@@ -49,23 +49,23 @@ export function useHabits(date: Ref<HabitDate>) {
 		refresh();
 	}
 
-	function toggleActiveStatus(id: string, date: HabitDate) {
+	function toggleActiveStatus(id: string, date: DateType) {
 		service.toggleStatus(id, date);
 		doSync();
 		refresh();
 	}
 
-	function toggleHabitCompletion(id: string, date: HabitDate) {
+	function toggleHabitCompletion(id: string, date: DateType) {
 		service.toggleCompletion(id, date);
 		doSync();
 		refresh();
 	}
 
-	function canToggleCompletion(id: string, date: HabitDate) {
+	function canToggleCompletion(id: string, date: DateType) {
 		return service.canToggleCompletion(id, date);
 	}
 
-	function canToggleStatus(id: string, date: HabitDate) {
+	function canToggleStatus(id: string, date: DateType) {
 		return service.canToggleStatus(id, date);
 	}
 

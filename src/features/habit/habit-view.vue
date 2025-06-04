@@ -4,13 +4,12 @@ import AddHabitFormDrawer from "@/features/habit/add-habit-form/add-habit-form-d
 import DaySelect from "@/features/habit/day-select/day-select.vue";
 import HabitListItem from "@/features/habit/habit-list/habit-list-item.vue";
 import HabitList from "@/features/habit/habit-list/habit-list.vue";
-import { seedHabits } from "@/features/habit/seed";
 import { useHabits } from "@/features/habit/use-habit";
-import { type HabitDate } from "@/lib/date";
+import { type DateType } from "@/lib/date";
 import { ref, watchEffect } from "vue";
 
 const props = defineProps<{
-	date: HabitDate;
+	date: DateType;
 }>();
 
 const selectedDay = ref(props.date);
@@ -19,7 +18,6 @@ watchEffect(() => {
 });
 
 const {
-	habits,
 	habitsDueOnDate,
 	addHabit,
 	deleteHabit,
@@ -27,10 +25,6 @@ const {
 	toggleActiveStatus,
 	toggleHabitCompletion,
 } = useHabits(selectedDay);
-
-if (habits.value.length === 0) {
-	seedHabits();
-}
 </script>
 
 <template>

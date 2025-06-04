@@ -1,5 +1,5 @@
 import HabitPage from "@/app/pages/habit-page.vue";
-import PageNotFoundPage from "@/app/pages/page-not-found-page.vue";
+import NotFoundPage from "@/app/pages/not-found-page.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 export const router = createRouter({
@@ -16,7 +16,7 @@ export const router = createRouter({
 		{
 			name: "PageNotFound",
 			path: "/:pathMatch(.*)*",
-			component: PageNotFoundPage,
+			component: NotFoundPage,
 		},
 	],
 });

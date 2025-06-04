@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import PageNotFoundPage from "@/app/pages/page-not-found-page.vue";
+import NotFoundPage from "@/app/pages/not-found-page.vue";
 import { HabitView } from "@/features/habit";
-import { isValid, parseISO, startOfToday, type HabitDate } from "@/lib/date";
+import { isValid, parseISO, startOfToday, type DateType } from "@/lib/date";
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
-const currentDate = ref<HabitDate>();
+const currentDate = ref<DateType>();
 const route = useRoute();
 watch(
 	() => route.params.date,
@@ -24,5 +24,5 @@ watch(
 
 <template>
 	<HabitView v-if="currentDate" :date="currentDate" />
-	<PageNotFoundPage v-else />
+	<NotFoundPage v-else />
 </template>

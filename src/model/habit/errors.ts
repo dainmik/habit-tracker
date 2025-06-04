@@ -1,14 +1,14 @@
-import type { HabitDate } from "@/lib/date";
+import type { DateType } from "@/lib/date";
 import { HabitError } from "@/model/error";
 
 interface ToggleHabitStatusErrorParams {
 	habitId: string;
-	date: HabitDate;
+	date: DateType;
 }
 
 export class ToggleHabitStatusError extends HabitError {
 	habitId: string;
-	date: HabitDate;
+	date: DateType;
 
 	constructor({ habitId, date }: ToggleHabitStatusErrorParams) {
 		super("Couldn't toggle habit status.");
@@ -20,12 +20,12 @@ export class ToggleHabitStatusError extends HabitError {
 
 interface ToggleHabitCompletionErrorParams {
 	habitId: string;
-	date: HabitDate;
+	date: DateType;
 }
 
 export class ToggleHabitCompletionError extends HabitError {
 	habitId: string;
-	date: HabitDate;
+	date: DateType;
 
 	constructor({ habitId, date }: ToggleHabitCompletionErrorParams) {
 		super("Couldn't toggle habit completion.");

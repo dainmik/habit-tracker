@@ -9,7 +9,8 @@ const props = withDefaults(defineProps<DrawerRootProps>(), {
 
 const emits = defineEmits<DrawerRootEmits>();
 
-const forwarded = useForwardPropsEmits(props, emits);
+// 'as object' cast fixes 'Spread types may only be created from object types.ts-plugin(2698)' error in the template 'v-bind="forwarded"'
+const forwarded = useForwardPropsEmits(props, emits) as object;
 </script>
 
 <template>

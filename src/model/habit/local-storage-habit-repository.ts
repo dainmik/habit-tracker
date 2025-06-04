@@ -1,4 +1,4 @@
-import { LocalStorage } from "@/adapters/local-storage";
+import { LocalStorage } from "@/lib/local-storage";
 import { Habit } from "@/model/habit/habit";
 import type { HabitPersistenceModel } from "@/model/habit/habit-persistence-model";
 import type { HabitRepository } from "./habit-repository";

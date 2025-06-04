@@ -3,7 +3,7 @@ import {
 	isBefore,
 	isSameDay,
 	parseISO,
-	type HabitDate,
+	type DateType,
 } from "@/lib/date";
 import {
 	HabitNotFoundError,
@@ -24,28 +24,35 @@ function getWeekday(date: Date): string {
  * This function will get messy if we need to add more rules.
  * TODO: Consider refactoring when touching this code.
  */
-function isHabitDueOn(habit: Habit, target: HabitDate) {
+function isHabitDueOn(habit: Habit, targetDate: DateType) {
 	const repeat = habit.schedule.repeat;
-	const start = parseISO(habit.schedule.startDate);
+	const startDate = parseISO(habit.schedule.startDate);
+	const startAndTargetAreSameDay = isSameDay(targetDate, startDate);
 
-	if (isBefore(target, start)) return false;
+	if (isBefore(targetDate, startDate)) {
+		return false;
+	}
 
-	if (!repeat) return isSameDay(target, start);
+	if (!repeat) {
+		return startAndTargetAreSameDay;
+	}
 
 	const duration = repeat.duration;
 
 	if (duration.type === "untilDate") {
 		const end = parseISO(duration.endDate);
-		if (isBefore(end, target)) return false;
+		if (isBefore(end, targetDate)) {
+			return false;
+		}
 	}
 
 	const isMatch = (date: Date) => {
 		if (repeat.type === "day") {
 			// TODO: encapsulate these date-fns functions into date.ts lib
-			const days = differenceInDays(date, start);
+			const days = differenceInDays(date, startDate);
 			return days % repeat.everyNumberOfDays === 0;
 		} else {
-			const weeks = differenceInWeeks(date, start);
+			const weeks = differenceInWeeks(date, startDate);
 			const weekday = getWeekday(date);
 			return (
 				weeks % repeat.everyNumberOfWeeks === 0 &&
@@ -56,14 +63,18 @@ function isHabitDueOn(habit: Habit, target: HabitDate) {
 
 	if (duration.type === "afterOccurrences") {
 		let count = 0;
-		let current = start;
+		let current = startDate;
 		const max = duration.count;
 
-		while (!isBefore(target, current)) {
+		while (!isBefore(targetDate, current)) {
 			if (isMatch(current)) {
 				count++;
-				if (isSameDay(current, target)) return true;
-				if (count >= max) return false;
+				if (isSameDay(current, targetDate)) {
+					return true;
+				}
+				if (count >= max) {
+					return false;
+				}
 			}
 
 			current = addDays(current, 1);
@@ -72,7 +83,7 @@ function isHabitDueOn(habit: Habit, target: HabitDate) {
 		return false;
 	}
 
-	return isMatch(target);
+	return isMatch(targetDate);
 }
 
 export class HabitService {
@@ -86,13 +97,13 @@ export class HabitService {
 		return habit;
 	}
 
-	getHabits(date: HabitDate) {
+	getHabits(date: DateType) {
 		return this.repository
 			.getAll()
 			.map((habit) => habitToViewModel(habit, date));
 	}
 
-	getHabitsDueOnDate(date: HabitDate) {
+	getHabitsDueOnDate(date: DateType) {
 		return this.repository
 			.getAll()
 			.filter((habit) => isHabitDueOn(habit, date))
@@ -105,7 +116,9 @@ export class HabitService {
 
 	editHabit(id: string, habit: HabitInputModel) {
 		const currentHabit = this.repository.get(id);
-		if (!currentHabit) return;
+		if (!currentHabit) {
+			return;
+		}
 		this.repository.update(Object.assign(currentHabit, habit));
 	}
 
@@ -113,7 +126,7 @@ export class HabitService {
 		this.repository.delete(id);
 	}
 
-	toggleStatus(id: string, date: HabitDate) {
+	toggleStatus(id: string, date: DateType) {
 		const habit = this.getHabit(id);
 
 		if (!habit.canToggleStatus(date)) {
@@ -128,7 +141,7 @@ export class HabitService {
 		this.repository.update(habit);
 	}
 
-	toggleCompletion(id: string, date: HabitDate) {
+	toggleCompletion(id: string, date: DateType) {
 		const habit = this.getHabit(id);
 
 		if (!habit.canToggleCompletion(date)) {
@@ -143,12 +156,12 @@ export class HabitService {
 		this.repository.update(habit);
 	}
 
-	canToggleCompletion(id: string, date: HabitDate) {
+	canToggleCompletion(id: string, date: DateType) {
 		const habit = this.repository.get(id);
 		return habit?.canToggleCompletion(date);
 	}
 
-	canToggleStatus(id: string, date: HabitDate) {
+	canToggleStatus(id: string, date: DateType) {
 		const habit = this.repository.get(id);
 		return habit?.canToggleStatus(date);
 	}

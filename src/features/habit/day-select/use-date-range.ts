@@ -2,13 +2,13 @@ import {
 	addDays,
 	convertDateToIso,
 	parseISO,
-	type HabitDate,
+	type DateType,
 	type IsoDateString,
 } from "@/lib/date";
 import { nextTick, ref, type ShallowRef } from "vue";
 
 function generateDates(
-	startDate: HabitDate,
+	startDate: DateType,
 	bufferDays: number,
 ): IsoDateString[] {
 	const dates: IsoDateString[] = [];
@@ -21,7 +21,7 @@ function generateDates(
 
 export function useDateRange(
 	dateRefs: Readonly<ShallowRef<HTMLLIElement[] | null>>,
-	centerDate: HabitDate,
+	centerDate: DateType,
 	bufferDays = 5,
 ) {
 	const dates = ref<IsoDateString[]>([]);

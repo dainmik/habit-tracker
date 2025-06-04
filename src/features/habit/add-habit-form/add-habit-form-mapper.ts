@@ -1,8 +1,8 @@
 import {
+	addMonths,
 	convertDateToIso,
 	currentDate,
-	parseISO,
-	type HabitDate,
+	type IsoDateString,
 } from "@/lib/date";
 import type {
 	DayRepeat,
@@ -16,13 +16,13 @@ import type { HabitViewModel } from "@/model/habit/habit-view-model";
 
 export interface HabitForm {
 	name: string;
-	startDate: HabitDate;
+	startDate: IsoDateString;
 	repeatEnabled: boolean;
 	repeatKind: "day" | "week";
 	repeatEvery: number;
 	daysOfWeek: Weekday[];
 	durationType: Duration["type"];
-	untilDate: HabitDate;
+	untilDate: IsoDateString;
 	occurrenceCount: number;
 }
 
@@ -31,13 +31,13 @@ export function habitToForm(habit: HabitViewModel): HabitForm {
 
 	const defaultForm: HabitForm = {
 		name: habit.name,
-		startDate: parseISO(habit.startDate),
+		startDate: habit.startDate,
 		repeatEnabled: !!repeat,
 		repeatKind: "day",
 		repeatEvery: 1,
 		daysOfWeek: [],
 		durationType: "forever",
-		untilDate: currentDate(),
+		untilDate: convertDateToIso(currentDate()),
 		occurrenceCount: 10,
 	};
 
@@ -57,8 +57,8 @@ export function habitToForm(habit: HabitViewModel): HabitForm {
 		durationType,
 		untilDate:
 			duration.type === "untilDate"
-				? parseISO(duration.endDate)
-				: currentDate(),
+				? duration.endDate
+				: convertDateToIso(currentDate()),
 		occurrenceCount: duration.type === "afterOccurrences" ? duration.count : 10,
 	};
 }
@@ -73,7 +73,7 @@ export function formToHabitDTO(form: HabitForm): HabitInputModel {
 				: form.durationType === "untilDate"
 					? {
 							type: "untilDate",
-							endDate: convertDateToIso(form.untilDate),
+							endDate: form.untilDate,
 						}
 					: {
 							type: "afterOccurrences",
@@ -98,7 +98,7 @@ export function formToHabitDTO(form: HabitForm): HabitInputModel {
 	return {
 		name: form.name,
 		schedule: {
-			startDate: convertDateToIso(form.startDate),
+			startDate: form.startDate,
 			repeat,
 		},
 	};
@@ -107,13 +107,13 @@ export function formToHabitDTO(form: HabitForm): HabitInputModel {
 export function emptyHabitForm(): HabitForm {
 	return {
 		name: "",
-		startDate: currentDate(),
+		startDate: convertDateToIso(currentDate()),
 		repeatEnabled: false,
 		repeatEvery: 1,
 		repeatKind: "day",
 		daysOfWeek: [],
 		durationType: "forever",
-		untilDate: currentDate(),
+		untilDate: convertDateToIso(addMonths(currentDate(), 1)),
 		occurrenceCount: 10,
 	};
 }

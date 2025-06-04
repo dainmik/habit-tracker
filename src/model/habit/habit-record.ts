@@ -1,14 +1,14 @@
-import { currentDate, parseISO, type HabitDate } from "@/lib/date";
+import { currentDate, parseISO, type DateType } from "@/lib/date";
 import { Entity } from "@/model/entity";
 import type { HabitRecordPersistenceModel } from "@/model/habit/habit-persistence-model";
 
 export class HabitRecord extends Entity {
 	habitId: string;
-	date: HabitDate;
+	date: DateType;
 	completed: boolean;
-	createdAt: HabitDate;
+	createdAt: DateType;
 
-	constructor(habitId: string, date: HabitDate, completed: boolean) {
+	constructor(habitId: string, date: DateType, completed: boolean) {
 		super();
 		this.habitId = habitId;
 		this.date = date;

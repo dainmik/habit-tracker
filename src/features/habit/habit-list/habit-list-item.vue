@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AddHabitFormDrawer from "@/features/habit/add-habit-form/add-habit-form-drawer.vue";
-import { type HabitDate } from "@/lib/date";
+import { type DateType } from "@/lib/date";
 import { ICONS } from "@/lib/icons";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
@@ -8,7 +8,7 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 defineProps<{
-	date: HabitDate;
+	date: DateType;
 	habit: HabitViewModel;
 	onToggleCompleted: (id: string) => void;
 	onEdit: (id: string, updatedHabit: HabitInputModel) => void;
@@ -90,12 +90,8 @@ const iconInfo = (habit: HabitViewModel) => {
 					@submit="(updatedHabit) => onEdit(habit.id, updatedHabit)"
 				>
 					<template #trigger="{ open }">
-						<button @click.stop="open">
-							<Icon
-								aria-label="Edit habit"
-								:icon="ICONS.edit"
-								class="text-2xl"
-							/>
+						<button aria-label="Edit habit" @click.stop="open">
+							<Icon :icon="ICONS.edit" class="text-2xl" />
 						</button>
 					</template>
 				</AddHabitFormDrawer>

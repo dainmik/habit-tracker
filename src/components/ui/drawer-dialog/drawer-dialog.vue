@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -9,7 +8,6 @@ import {
 } from "@/components/ui/dialog";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
@@ -67,12 +65,9 @@ function close() {
 
 			<div class="px-4">
 				<slot :close="close" />
-				<DrawerFooter class="pt-4">
-					<DrawerClose as-child>
-						<Button variant="outline" type="button">Cancel</Button>
-					</DrawerClose>
-				</DrawerFooter>
 			</div>
+
+			<DrawerFooter class="pt-4"> </DrawerFooter>
 		</DrawerContent>
 	</Drawer>
 </template>

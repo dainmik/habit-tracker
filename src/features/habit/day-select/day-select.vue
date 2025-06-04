@@ -2,14 +2,14 @@
 import DayButton from "@/features/habit/day-select/day-button.vue";
 import { useDateRange } from "@/features/habit/day-select/use-date-range";
 import { useInfiniteScroll } from "@/features/habit/day-select/use-infinite-scroll";
-import { convertDateToIso, parseISO, type HabitDate } from "@/lib/date";
+import { convertDateToIso, parseISO, type DateType } from "@/lib/date";
 import { ICONS } from "@/lib/icons";
 import { Icon } from "@iconify/vue";
 import { ref, useTemplateRef, watch } from "vue";
 
-const props = defineProps<{ selectedDate: HabitDate }>();
+const props = defineProps<{ selectedDate: DateType }>();
 const emits = defineEmits<{
-	dateSelected: [date: HabitDate];
+	dateSelected: [date: DateType];
 }>();
 
 const selectedDate = ref(props.selectedDate);
@@ -73,7 +73,7 @@ function scrollByPage(direction: "left" | "right") {
 
 <template>
 	<div>
-		<div>
+		<div class="text-muted-foreground text-xs font-bold uppercase">
 			{{
 				// TODO: this should be encapsulated into the date library as well.
 				selectedDate.toLocaleDateString(undefined, {

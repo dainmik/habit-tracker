@@ -7,7 +7,7 @@ import {
 	parseISO,
 	startOfDay,
 	startOfToday,
-	type HabitDate,
+	type DateType,
 } from "@/lib/date";
 import { Entity } from "@/model/entity";
 import {
@@ -60,7 +60,7 @@ export interface HabitSchedule {
 export class Habit extends Entity {
 	name: string;
 	schedule: HabitSchedule;
-	createdAt: HabitDate;
+	createdAt: DateType;
 	private records: HabitRecord[];
 	private statusChanges: HabitStatusChange[];
 
@@ -73,7 +73,7 @@ export class Habit extends Entity {
 		this.statusChanges = [];
 	}
 
-	toggleStatus(date: HabitDate) {
+	toggleStatus(date: DateType) {
 		if (!this.canToggleStatus(date)) {
 			throw new ToggleHabitStatusError({
 				habitId: this.id,
@@ -95,7 +95,7 @@ export class Habit extends Entity {
 		}
 	}
 
-	toggleCompletion(date: HabitDate) {
+	toggleCompletion(date: DateType) {
 		if (!this.canToggleCompletion(date)) {
 			throw new ToggleHabitCompletionError({
 				habitId: this.id,
@@ -111,15 +111,15 @@ export class Habit extends Entity {
 		}
 	}
 
-	getRecord(date: HabitDate) {
+	getRecord(date: DateType) {
 		return this.records.find((r) => isSameDay(r.date, date));
 	}
 
-	getCompleted(date: HabitDate) {
+	getCompleted(date: DateType) {
 		return !!this.getRecord(date)?.completed;
 	}
 
-	getStatusOn(date: HabitDate) {
+	getStatusOn(date: DateType) {
 		// Default to active, find most recent status change on/before date
 		const relevantChanges = this.statusChanges
 			.filter((sc) => sc.date <= date)
@@ -128,7 +128,7 @@ export class Habit extends Entity {
 		return relevantChanges[0]?.status ?? "active";
 	}
 
-	canToggleCompletion(date: HabitDate) {
+	canToggleCompletion(date: DateType) {
 		const latestStatus = this.statusChanges
 			.filter((s) => s.habitId === this.id)
 			.filter((s) => s.date <= date)
@@ -143,14 +143,14 @@ export class Habit extends Entity {
 		return isNotFutureDate && latestStatus.status === "active";
 	}
 
-	canToggleStatus(date: HabitDate) {
+	canToggleStatus(date: DateType) {
 		const today = startOfToday();
 		const target = startOfDay(date);
 
 		return isToday(target) || isAfter(target, today);
 	}
 
-	wasHabitCompleted(date: HabitDate) {
+	wasHabitCompleted(date: DateType) {
 		if (!isBefore(date, startOfToday())) {
 			return true;
 		}

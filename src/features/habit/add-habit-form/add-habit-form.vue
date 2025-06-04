@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/ui/date-picker";
 import Input from "@/components/ui/input/input.vue";
 import Label from "@/components/ui/label/label.vue";
 import {
@@ -51,10 +52,8 @@ const durationOptions = [
 	{ name: "After occurrences", value: "afterOccurrences" },
 ];
 
-// Initialize form state
 const form = reactive<HabitForm>(emptyHabitForm());
 
-// Watch for habit prop changes
 watch(
 	() => props.habit,
 	(newHabit) => {
@@ -70,6 +69,7 @@ watch(
 const handleSubmit = () => {
 	const habitDTO: HabitInputModel = formToHabitDTO(form);
 	emits("submit", habitDTO);
+	console.log(habitDTO);
 	resetForm();
 };
 
@@ -79,27 +79,30 @@ function resetForm() {
 </script>
 
 <template>
-	<div class="flex flex-col gap-4">
+	<form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
 		<!-- Name -->
 		<div class="flex flex-col gap-1">
 			<Label for="name">Name</Label>
-			<Input id="name" v-model="form.name" />
+			<Input id="name" v-model="form.name" name="name" />
 		</div>
 
 		<!-- Start Date -->
 		<div class="flex flex-col gap-1">
 			<Label for="start-date">Start date</Label>
-			<input id="start-date" v-model="form.startDate" type="date" />
+			<DatePicker id="start-date" v-model="form.startDate" name="startDate" />
 		</div>
 
 		<!-- Repeat toggle -->
 		<div class="flex flex-col gap-1">
 			<Label for="repeat">Repeat</Label>
-			<Switch id="repeat" v-model="form.repeatEnabled" />
+			<Switch id="repeat" v-model="form.repeatEnabled" name="repeat" />
 		</div>
 
 		<!-- Repeat Config -->
-		<div v-if="form.repeatEnabled" class="card flex flex-col justify-center">
+		<div
+			v-if="form.repeatEnabled"
+			class="card flex flex-col justify-center gap-4"
+		>
 			<div class="flex gap-4">
 				<Label for="repeatEvery" class="flex items-center">Every</Label>
 				<Input
@@ -107,10 +110,15 @@ function resetForm() {
 					v-model="form.repeatEvery"
 					input-id="repeatEvery"
 					type="number"
+					name="repeatEvery"
 				/>
 
 				<Label for="repeatKind" class="sr-only">Repeat kind</Label>
-				<Select v-model="form.repeatKind" aria-label="Repeat frequency">
+				<Select
+					v-model="form.repeatKind"
+					aria-label="Repeat frequency"
+					name="repeatKind"
+				>
 					<SelectTrigger id="repeatKind">
 						<SelectValue :value="form.repeatKind" />
 					</SelectTrigger>
@@ -129,40 +137,47 @@ function resetForm() {
 			</div>
 
 			<!-- Weekdays -->
-			<div v-if="form.repeatKind === 'week'" class="card flex justify-center">
-				<ToggleGroup
-					v-if="form.repeatKind === 'week'"
-					v-model="form.daysOfWeek"
-					type="multiple"
+			<ToggleGroup
+				v-if="form.repeatKind === 'week'"
+				v-model="form.daysOfWeek"
+				type="multiple"
+				name="daysOfWeek"
+				aria-label="Repeat on days of the week"
+			>
+				<ToggleGroupItem
+					v-for="option in daysOfWeekOptions"
+					:key="option.value"
+					:value="option.value"
+					variant="outline"
 				>
-					<ToggleGroupItem
-						v-for="option in daysOfWeekOptions"
-						:key="option.value"
-						:value="option.value"
-						aria-label="Toggle bold"
-					>
-						{{ option.name }}
-					</ToggleGroupItem>
-				</ToggleGroup>
-			</div>
+					{{ option.name }}
+				</ToggleGroupItem>
+			</ToggleGroup>
 
 			<!-- Duration Type -->
-			<div class="card flex justify-center">
-				<ToggleGroup v-model="form.durationType">
-					<ToggleGroupItem
-						v-for="option in durationOptions"
-						:key="option.value"
-						:value="option.value"
-						aria-label="Toggle bold"
-					>
-						{{ option.name }}
-					</ToggleGroupItem>
-				</ToggleGroup>
-			</div>
+			<ToggleGroup
+				v-model="form.durationType"
+				name="durationType"
+				aria-label="Repeat until condition"
+			>
+				<ToggleGroupItem
+					v-for="option in durationOptions"
+					:key="option.value"
+					:value="option.value"
+					variant="outline"
+				>
+					{{ option.name }}
+				</ToggleGroupItem>
+			</ToggleGroup>
 
 			<!-- Duration: Count -->
 			<div v-if="form.durationType === 'afterOccurrences'">
-				<Input v-model="form.occurrenceCount" input-id="occurrenceCount" />
+				<Input
+					v-model="form.occurrenceCount"
+					input-id="occurrenceCount"
+					name="occurrenceCount"
+					aria-label="Repeat until times completed"
+				/>
 			</div>
 
 			<!-- Duration: Until Date -->
@@ -171,10 +186,18 @@ function resetForm() {
 				class="flex flex-col gap-1"
 			>
 				<Label for="end-date">End date</Label>
-				<input id="end-date" v-model="form.untilDate" type="date" />
+
+				<DatePicker
+					id="end-date"
+					v-model="form.untilDate"
+					name="endDate"
+					aria-label="Repeat until date"
+				/>
 			</div>
 		</div>
 
-		<Button @click="handleSubmit">OK</Button>
-	</div>
+		<!-- A display: none, disabled submit input prevents implicit submission of the form when user presses enter while not focused on the submit button. -->
+		<input type="submit" disabled class="hidden" aria-hidden="true" />
+		<Button type="submit">OK</Button>
+	</form>
 </template>

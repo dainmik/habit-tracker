@@ -19,6 +19,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 			v-bind="forwarded"
 			:class="
 				cn(
+					`overflow-x-auto`,
 					`group/drawer-content bg-background fixed z-50 flex h-auto flex-col`,
 					`data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=top]:rounded-b-lg`,
 					`data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:rounded-t-lg`,
@@ -34,3 +35,9 @@ const forwarded = useForwardPropsEmits(props, emits);
 		</DrawerContent>
 	</DrawerPortal>
 </template>
+<style scoped>
+/* https://github.com/emilkowalski/vaul/issues/575 */
+[data-vaul-drawer][data-vaul-drawer-direction="bottom"]::after {
+	height: unset;
+}
+</style>

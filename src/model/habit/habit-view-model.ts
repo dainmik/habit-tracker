@@ -1,4 +1,4 @@
-import type { HabitDate } from "@/lib/date";
+import type { DateType } from "@/lib/date";
 import type { Habit, Repeat } from "@/model/habit/habit";
 import type { HabitStatus } from "@/model/habit/habit-status-change";
 
@@ -28,7 +28,7 @@ export interface HabitViewModel {
 
 export const habitToViewModel = (
 	habit: Habit,
-	targetDate: HabitDate,
+	targetDate: DateType,
 ): HabitViewModel => {
 	return {
 		id: habit.id,

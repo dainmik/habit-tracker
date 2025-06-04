@@ -10,9 +10,9 @@ defineProps<{
 	<article class="flex grow flex-col">
 		<div
 			v-if="habits.length === 0"
-			class="flex h-full items-center justify-center text-3xl font-semibold"
+			class="flex h-full items-center justify-center text-center text-3xl font-semibold"
 		>
-			No habbits for this day!
+			No habits for this day!
 		</div>
 
 		<ul v-else class="flex flex-col gap-2">
