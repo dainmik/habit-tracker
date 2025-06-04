@@ -1,5 +1,6 @@
 import HabitPage from "@/app/pages/habit-page.vue";
 import NotFoundPage from "@/app/pages/not-found-page.vue";
+import SeedPage from "@/app/pages/seed-page.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 export const router = createRouter({
@@ -12,6 +13,10 @@ export const router = createRouter({
 		{
 			path: "/day/:date",
 			component: HabitPage,
+		},
+		{
+			path: "/day/:date/seed",
+			component: SeedPage,
 		},
 		{
 			name: "PageNotFound",

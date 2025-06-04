@@ -26,7 +26,7 @@ export function seedHabits() {
 		{
 			name: "Daily Habit Forever",
 			schedule: {
-				startDate: convertDateToIso(addDays(today, -1)),
+				startDate: convertDateToIso(today),
 				repeat: {
 					type: "day",
 					everyNumberOfDays: 1,
@@ -35,7 +35,18 @@ export function seedHabits() {
 			},
 		},
 		{
-			name: "Daily Habit Until 3rd Day",
+			name: "Daily Habit Every Other Day",
+			schedule: {
+				startDate: convertDateToIso(today),
+				repeat: {
+					type: "day",
+					everyNumberOfDays: 2,
+					duration: { type: "forever" },
+				},
+			},
+		},
+		{
+			name: "Daily Habit For 3 Day",
 			schedule: {
 				startDate: convertDateToIso(today),
 				repeat: {
@@ -43,7 +54,7 @@ export function seedHabits() {
 					everyNumberOfDays: 1,
 					duration: {
 						type: "untilDate",
-						endDate: convertDateToIso(addDays(today, 3)),
+						endDate: convertDateToIso(addDays(today, 2)),
 					},
 				},
 			},
@@ -63,6 +74,17 @@ export function seedHabits() {
 			},
 		},
 		{
+			name: "Daily Habit Every Other Day Starting From Next Day",
+			schedule: {
+				startDate: convertDateToIso(addDays(today, 1)),
+				repeat: {
+					type: "day",
+					everyNumberOfDays: 2,
+					duration: { type: "forever" },
+				},
+			},
+		},
+		{
 			name: "Weekly Habit Forever on Mon, Wed, Fri",
 			schedule: {
 				startDate: convertDateToIso(today),
@@ -75,16 +97,16 @@ export function seedHabits() {
 			},
 		},
 		{
-			name: "Weekly Habit Until Date",
+			name: "Weekly Habit Until Date on Wed",
 			schedule: {
 				startDate: convertDateToIso(today),
 				repeat: {
 					type: "week",
 					everyNumberOfWeeks: 1,
-					daysOfWeek: ["tuesday", "thursday"],
+					daysOfWeek: ["wednesday"],
 					duration: {
 						type: "untilDate",
-						endDate: convertDateToIso(addDays(today, 20)),
+						endDate: convertDateToIso(addDays(today, 14)),
 					},
 				},
 			},
