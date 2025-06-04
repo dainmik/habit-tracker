@@ -1,12 +1,12 @@
-import { addDays, convertDateToIso, currentDate } from "@/lib/date";
+import { addDays, convertDateToIso, type DateType } from "@/lib/date";
 import type { Habit } from "@/model/habit/habit";
 import { HabitService } from "@/model/habit/habit-service";
 import { LocalStorageHabitRepository } from "@/model/habit/local-storage-habit-repository";
 
-export function seedHabits() {
+export function seedHabits(date: DateType) {
 	const service = new HabitService(new LocalStorageHabitRepository());
 
-	const today = currentDate();
+	const today = date;
 
 	const newHabits = [
 		{

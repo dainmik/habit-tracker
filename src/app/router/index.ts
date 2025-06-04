@@ -17,6 +17,7 @@ export const router = createRouter({
 		{
 			path: "/day/:date/seed",
 			component: SeedPage,
+			props: true,
 		},
 		{
 			name: "PageNotFound",
