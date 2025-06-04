@@ -5,7 +5,7 @@ import {
 	type DateType,
 	type IsoDateString,
 } from "@/lib/date";
-import { nextTick, ref, type ShallowRef } from "vue";
+import { ref } from "vue";
 
 function generateDates(
 	startDate: DateType,
@@ -19,24 +19,9 @@ function generateDates(
 	return dates;
 }
 
-export function useDateRange(
-	dateRefs: Readonly<ShallowRef<HTMLLIElement[] | null>>,
-	centerDate: DateType,
-	bufferDays = 5,
-) {
+export function useDateRange(initialCenterDate: DateType, bufferDays = 5) {
 	const dates = ref<IsoDateString[]>([]);
-	dates.value = generateDates(centerDate, bufferDays);
-
-	void nextTick(() => {
-		const dateRefsValues = dateRefs.value;
-		if (!dateRefsValues) return;
-
-		const index = dates.value.indexOf(convertDateToIso(centerDate));
-		dateRefsValues[index]?.scrollIntoView({
-			behavior: "auto",
-			inline: "center",
-		});
-	});
+	dates.value = generateDates(initialCenterDate, bufferDays);
 
 	function addBefore(baseISO: string) {
 		const base = parseISO(baseISO);
@@ -55,7 +40,7 @@ export function useDateRange(
 	}
 
 	return {
-		dates: dates,
+		dates,
 		addBefore,
 		addAfter,
 	};

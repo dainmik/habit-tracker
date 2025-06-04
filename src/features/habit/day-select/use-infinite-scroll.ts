@@ -10,6 +10,8 @@ export function useInfiniteScroll(
 	let startObserver: IntersectionObserver | undefined;
 	let endObserver: IntersectionObserver | undefined;
 
+	const rootMargin = 200;
+
 	onMounted(async () => {
 		await nextTick();
 		if (!scroller.value || !startSentinel.value || !endSentinel.value) return;
@@ -33,7 +35,10 @@ export function useInfiniteScroll(
 						scrollLeft + (newScrollWidth - scrollWidth);
 				})();
 			},
-			{ root: scroller.value },
+			{
+				root: scroller.value,
+				rootMargin: `0px 0px 0px ${rootMargin}px`,
+			},
 		);
 		startObserver.observe(startSentinel.value);
 
@@ -43,7 +48,10 @@ export function useInfiniteScroll(
 
 				onReachEnd();
 			},
-			{ root: scroller.value },
+			{
+				root: scroller.value,
+				rootMargin: `0px ${rootMargin}px 0px 0px`,
+			},
 		);
 		endObserver.observe(endSentinel.value);
 	});

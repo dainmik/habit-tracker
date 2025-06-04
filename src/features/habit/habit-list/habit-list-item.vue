@@ -75,6 +75,7 @@ const iconInfo = (habit: HabitViewModel) => {
 							? 'Mark habit as incomplete'
 							: 'Mark habit as complete'
 					"
+					class="transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onToggleCompleted(habit.id)"
 				>
 					<Icon
@@ -90,7 +91,11 @@ const iconInfo = (habit: HabitViewModel) => {
 					@submit="(updatedHabit) => onEdit(habit.id, updatedHabit)"
 				>
 					<template #trigger="{ open }">
-						<button aria-label="Edit habit" @click.stop="open">
+						<button
+							aria-label="Edit habit"
+							class="transition-transform hover:scale-125 focus-visible:scale-125"
+							@click.stop="open"
+						>
 							<Icon :icon="ICONS.edit" class="text-2xl" />
 						</button>
 					</template>
@@ -103,6 +108,7 @@ const iconInfo = (habit: HabitViewModel) => {
 							? 'Mark habit as inactive'
 							: 'Mark habit as active'
 					"
+					class="transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onToggleStatus(habit.id)"
 				>
 					<Icon
@@ -111,7 +117,11 @@ const iconInfo = (habit: HabitViewModel) => {
 					/>
 				</button>
 
-				<button aria-label="Delete habit" @click.stop="onDelete(habit.id)">
+				<button
+					aria-label="Delete habit"
+					class="transition-transform hover:scale-125 focus-visible:scale-125"
+					@click.stop="onDelete(habit.id)"
+				>
 					<Icon :icon="ICONS.delete" class="text-2xl text-red-500" />
 				</button>
 			</div>

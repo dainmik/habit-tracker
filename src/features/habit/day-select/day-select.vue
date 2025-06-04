@@ -1,16 +1,25 @@
 <script setup lang="ts">
+import {
+	RovingFocusGroup,
+	RovingFocusItem,
+} from "@/components/ui/roving-focus";
 import DayButton from "@/features/habit/day-select/day-button.vue";
 import { useDateRange } from "@/features/habit/day-select/use-date-range";
 import { useInfiniteScroll } from "@/features/habit/day-select/use-infinite-scroll";
 import { convertDateToIso, parseISO, type DateType } from "@/lib/date";
 import { ICONS } from "@/lib/icons";
 import { Icon } from "@iconify/vue";
-import { ref, useTemplateRef, watch } from "vue";
+import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 const props = defineProps<{ selectedDate: DateType }>();
 const emits = defineEmits<{
 	dateSelected: [date: DateType];
 }>();
+
+const scroller = ref<HTMLElement>();
+const startSentinel = ref<HTMLElement>();
+const endSentinel = ref<HTMLElement>();
+const itemsRefs = useTemplateRef("items");
 
 const selectedDate = ref(props.selectedDate);
 watch(
@@ -20,16 +29,27 @@ watch(
 	},
 );
 
-const scroller = ref<HTMLElement>();
-const startSentinel = ref<HTMLElement>();
-const endSentinel = ref<HTMLElement>();
-const itemsRefs = useTemplateRef("items");
+let hasRun = false;
+watch([itemsRefs, selectedDate], () => {
+	void nextTick(() => {
+		const dateRefsValues = itemsRefs.value;
+		if (!dateRefsValues) return;
 
-const { dates, addAfter, addBefore } = useDateRange(
-	itemsRefs,
-	selectedDate.value,
-);
+		const element = itemsRefs.value.find(
+			(element) => element.id === convertDateToIso(selectedDate.value),
+		);
 
+		element?.scrollIntoView({
+			behavior: hasRun ? "smooth" : "instant",
+			block: "center",
+			inline: "center",
+		});
+
+		hasRun = true;
+	});
+});
+
+const { dates, addAfter, addBefore } = useDateRange(selectedDate.value);
 useInfiniteScroll(
 	scroller,
 	startSentinel,
@@ -50,19 +70,16 @@ useInfiniteScroll(
 
 function scrollByPage(direction: "left" | "right") {
 	const container = scroller.value;
-	const items = itemsRefs.value; // itemsRefs is from useTemplateRef("items")
+	const items = itemsRefs.value;
 
 	if (!container || !items?.length) return;
 
-	// Assume all day buttons have roughly equal width, take the first
+	// We assume all buttons have equal width
 	const childWidth = (items[0] as HTMLElement).offsetWidth;
-	const gap = 4; // Tailwind gap-1 = 4px
-	const totalChildWidth = childWidth + gap;
 
-	// Number of fully visible items
-	const visibleCount = Math.floor(container.clientWidth / totalChildWidth);
+	const visibleCount = Math.floor(container.clientWidth / childWidth);
 
-	const scrollDistance = totalChildWidth * visibleCount;
+	const scrollDistance = childWidth * visibleCount;
 
 	container.scrollBy({
 		left: direction === "right" ? scrollDistance : -scrollDistance,
@@ -88,27 +105,39 @@ function scrollByPage(direction: "left" | "right") {
 			</button>
 
 			<div class="relative flex-grow overflow-hidden">
-				<ul
-					ref="scroller"
-					class="fade-scroll-mask scrollbar-none flex gap-1 overflow-x-auto p-2"
-				>
-					<div ref="startSentinel" class="h-full w-[1px]"></div>
+				<RovingFocusGroup>
+					<ul
+						ref="scroller"
+						class="fade-scroll-mask scrollbar-none flex gap-1 overflow-x-auto p-2"
+					>
+						<div ref="startSentinel" class="h-full w-[1px]"></div>
 
-					<li v-for="iso in dates" :key="iso" ref="items" class="flex">
-						<DayButton
-							:iso="iso"
-							:is-active="iso === convertDateToIso(selectedDate)"
-							@pressed="
-								(iso) => {
-									selectedDate = parseISO(iso);
-									emits('dateSelected', parseISO(iso));
-								}
-							"
-						/>
-					</li>
+						<li
+							v-for="iso in dates"
+							:id="iso"
+							:key="iso"
+							ref="items"
+							class="flex"
+						>
+							<RovingFocusItem
+								:focused-initially="iso === convertDateToIso(selectedDate)"
+							>
+								<DayButton
+									:iso="iso"
+									:is-active="iso === convertDateToIso(selectedDate)"
+									@pressed="
+										(iso) => {
+											selectedDate = parseISO(iso);
+											emits('dateSelected', parseISO(iso));
+										}
+									"
+								/>
+							</RovingFocusItem>
+						</li>
 
-					<div ref="endSentinel" class="h-full w-[1px]"></div>
-				</ul>
+						<div ref="endSentinel" class="h-full w-[1px]"></div>
+					</ul>
+				</RovingFocusGroup>
 			</div>
 
 			<button @click="scrollByPage('right')">

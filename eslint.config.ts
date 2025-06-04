@@ -26,6 +26,14 @@ export default defineConfigWithVueTs([
 			vueTsConfigs.stylisticTypeChecked,
 		],
 		rules: {
+			"@typescript-eslint/restrict-template-expressions": [
+				"error",
+				{
+					// We allow for number and boolean to avoid having to call String constructor or toString method inside template literals because their string representations are reasonably well defined and generally purposeful, unlike other types such as object, undefined, null.
+					allowNumber: true,
+					allowBoolean: true,
+				},
+			],
 			"vue/component-name-in-template-casing": [
 				"error",
 				"PascalCase",

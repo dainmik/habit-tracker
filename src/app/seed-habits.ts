@@ -97,13 +97,13 @@ export function seedHabits() {
 			},
 		},
 		{
-			name: "Weekly Habit Until Date on Wed",
+			name: "Weekly Habit Until Date on Sun",
 			schedule: {
 				startDate: convertDateToIso(today),
 				repeat: {
 					type: "week",
 					everyNumberOfWeeks: 1,
-					daysOfWeek: ["wednesday"],
+					daysOfWeek: ["sunday"],
 					duration: {
 						type: "untilDate",
 						endDate: convertDateToIso(addDays(today, 14)),
@@ -112,13 +112,13 @@ export function seedHabits() {
 			},
 		},
 		{
-			name: "Weekly Habit After Occurrences",
+			name: "Habit Every 2 Weeks For 3 Occurrences on Sat",
 			schedule: {
 				startDate: convertDateToIso(today),
 				repeat: {
 					type: "week",
-					everyNumberOfWeeks: 1,
-					daysOfWeek: ["sunday"],
+					everyNumberOfWeeks: 2,
+					daysOfWeek: ["saturday"],
 					duration: {
 						type: "afterOccurrences",
 						count: 3,

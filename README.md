@@ -13,7 +13,6 @@ Navigation between days:
 
 - [ ] For each button, display indication when all/some/none habits were completed for every day
 - [ ] Add option to quickly return to the currently selected day when it is no longer visible
-- [ ] Upon selecting a day, scroll the selected day button into the center of the navigation
 - [ ] When scrolling the navigation list, the year and month label above it should indicate what year and month currently visible date select buttons refer to
 
 Habit list:
