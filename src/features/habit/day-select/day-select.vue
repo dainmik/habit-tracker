@@ -6,37 +6,30 @@ import {
 import DayButton from "@/features/habit/day-select/day-button.vue";
 import { useDateRange } from "@/features/habit/day-select/use-date-range";
 import { useInfiniteScroll } from "@/features/habit/day-select/use-infinite-scroll";
-import { convertDateToIso, parseISO, type DateType } from "@/lib/date";
+import {
+	convertDateToIso,
+	type DateType,
+	type IsoDateString,
+} from "@/lib/date";
 import { ICONS } from "@/lib/icons";
 import { Icon } from "@iconify/vue";
 import { nextTick, ref, useTemplateRef, watch } from "vue";
 
 const props = defineProps<{ selectedDate: DateType }>();
-const emits = defineEmits<{
-	dateSelected: [date: DateType];
-}>();
 
 const scroller = ref<HTMLElement>();
 const startSentinel = ref<HTMLElement>();
 const endSentinel = ref<HTMLElement>();
 const itemsRefs = useTemplateRef("items");
 
-const selectedDate = ref(props.selectedDate);
-watch(
-	() => props.selectedDate,
-	(newDate) => {
-		selectedDate.value = newDate;
-	},
-);
-
 let hasRun = false;
-watch([itemsRefs, selectedDate], () => {
+watch([itemsRefs, () => props.selectedDate], () => {
 	void nextTick(() => {
 		const dateRefsValues = itemsRefs.value;
 		if (!dateRefsValues) return;
 
 		const element = itemsRefs.value.find(
-			(element) => element.id === convertDateToIso(selectedDate.value),
+			(element) => element.id === convertDateToIso(props.selectedDate),
 		);
 
 		element?.scrollIntoView({
@@ -49,7 +42,7 @@ watch([itemsRefs, selectedDate], () => {
 	});
 });
 
-const { dates, addAfter, addBefore } = useDateRange(selectedDate.value);
+const { dates, addAfter, addBefore } = useDateRange(props.selectedDate);
 useInfiniteScroll(
 	scroller,
 	startSentinel,
@@ -86,6 +79,9 @@ function scrollByPage(direction: "left" | "right") {
 		behavior: "smooth",
 	});
 }
+
+const isButtonActive = (iso: IsoDateString) =>
+	iso === convertDateToIso(props.selectedDate);
 </script>
 
 <template>
@@ -122,19 +118,8 @@ function scrollByPage(direction: "left" | "right") {
 							ref="items"
 							class="flex"
 						>
-							<RovingFocusItem
-								:focused-initially="iso === convertDateToIso(selectedDate)"
-							>
-								<DayButton
-									:iso="iso"
-									:is-active="iso === convertDateToIso(selectedDate)"
-									@pressed="
-										(iso) => {
-											selectedDate = parseISO(iso);
-											emits('dateSelected', parseISO(iso));
-										}
-									"
-								/>
+							<RovingFocusItem :focused-initially="isButtonActive(iso)">
+								<DayButton :iso="iso" :is-active="isButtonActive(iso)" />
 							</RovingFocusItem>
 						</li>
 

@@ -12,9 +12,6 @@ const props = defineProps<{
 	iso: IsoDateString;
 	isActive: boolean;
 }>();
-const emits = defineEmits<{
-	pressed: [iso: IsoDateString];
-}>();
 
 const date = computed(() => parseISO(props.iso));
 const weekday = computed(() => getWeekdayNameTruncated(date.value));
@@ -28,7 +25,6 @@ const day = computed(() => getDayOfMonthNumber(date.value));
 			'border-primary mx-1.25 scale-120': props.isActive,
 		}"
 		:to="`/day/${iso}`"
-		@click="emits('pressed', iso)"
 	>
 		<div class="text-muted-foreground text-xs font-bold uppercase">
 			{{ weekday }}

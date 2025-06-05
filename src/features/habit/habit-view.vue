@@ -6,16 +6,13 @@ import HabitListItem from "@/features/habit/habit-list/habit-list-item.vue";
 import HabitList from "@/features/habit/habit-list/habit-list.vue";
 import { useHabits } from "@/features/habit/use-habit";
 import { type DateType } from "@/lib/date";
-import { ref, watchEffect } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
 	date: DateType;
 }>();
 
-const selectedDate = ref(props.date);
-watchEffect(() => {
-	selectedDate.value = props.date;
-});
+const selectedDate = computed(() => props.date);
 
 const {
 	habitsDueOnDate,
@@ -28,14 +25,7 @@ const {
 </script>
 
 <template>
-	<DaySelect
-		:selected-date="selectedDate"
-		@date-selected="
-			(date) => {
-				selectedDate = date;
-			}
-		"
-	/>
+	<DaySelect :selected-date="selectedDate" />
 
 	<HabitList
 		v-slot="{ habit, expandedItemID, handleExpand }"
