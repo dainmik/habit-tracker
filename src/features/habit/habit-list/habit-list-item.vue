@@ -5,27 +5,27 @@ import { ICONS } from "@/lib/icons";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
 import { Icon } from "@iconify/vue";
-import { ref, useTemplateRef } from "vue";
+import { useTemplateRef } from "vue";
 
-defineProps<{
+const props = defineProps<{
 	date: DateType;
 	habit: HabitViewModel;
 	onToggleCompleted: (id: string) => void;
 	onEdit: (id: string, updatedHabit: HabitInputModel) => void;
 	onToggleStatus: (id: string) => void;
 	onDelete: (id: string) => void;
+	expandedItemID: string;
+	onExpand: (id: string) => void;
 }>();
 
 const itemRef = useTemplateRef("item");
-const expandedItemID = ref("");
 
 const handleToggleExpanded = (id: string) => {
-	const value = expandedItemID.value === id ? "" : id;
-	expandedItemID.value = value;
+	props.onExpand(props.expandedItemID === id ? "" : id);
 	itemRef.value?.scrollIntoView({ behavior: "smooth" });
 };
 
-const isExpanded = (habitID: string) => expandedItemID.value === habitID;
+const isExpanded = (habitID: string) => props.expandedItemID === habitID;
 
 const HABIT_NAME_ICONS = {
 	inProgress: {

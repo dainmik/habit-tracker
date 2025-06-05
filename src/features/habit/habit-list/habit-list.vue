@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
+import { ref } from "vue";
 
 defineProps<{
 	habits: HabitViewModel[];
 }>();
+
+const expandedItemID = ref("");
+
+const handleExpand = (id: string) => {
+	expandedItemID.value = id;
+};
 </script>
 
 <template>
@@ -16,7 +23,11 @@ defineProps<{
 
 	<ul v-else class="-m-4 flex flex-col gap-2 overflow-y-auto p-4">
 		<li v-for="habit of habits" :key="habit.id">
-			<slot :habit="habit" />
+			<slot
+				:habit="habit"
+				:expanded-item-i-d="expandedItemID"
+				:handle-expand="handleExpand"
+			/>
 		</li>
 	</ul>
 </template>

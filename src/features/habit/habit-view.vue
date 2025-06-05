@@ -37,7 +37,10 @@ const {
 		"
 	/>
 
-	<HabitList v-slot="{ habit }" :habits="habitsDueOnDate">
+	<HabitList
+		v-slot="{ habit, expandedItemID, handleExpand }"
+		:habits="habitsDueOnDate"
+	>
 		<HabitListItem
 			:date="selectedDay"
 			:habit="habit"
@@ -45,6 +48,8 @@ const {
 			:on-toggle-status="(id) => toggleActiveStatus(id, selectedDay)"
 			:on-edit="(id, updatedHabit) => editHabit(id, updatedHabit)"
 			:on-delete="(id) => deleteHabit(id)"
+			:expanded-item-i-d="expandedItemID"
+			:on-expand="handleExpand"
 		/>
 	</HabitList>
 
