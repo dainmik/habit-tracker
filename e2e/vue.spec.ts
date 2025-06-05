@@ -12,7 +12,6 @@ test.describe.configure({ mode: "parallel" });
 const addHabit = async (page: Page, name: string) => {
 	await page.getByRole("button", { name: "Add Habit" }).click();
 	await page.getByLabel("Name").fill(name);
-	await page.getByLabel("Start date").fill(currentDateISOString);
 	await page.getByLabel("Repeat").click();
 	await page.getByRole("button", { name: "OK" }).click();
 };
