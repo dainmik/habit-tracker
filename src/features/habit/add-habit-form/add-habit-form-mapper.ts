@@ -2,6 +2,7 @@ import {
 	addMonths,
 	convertDateToIso,
 	currentDate,
+	type DateType,
 	type IsoDateString,
 } from "@/lib/date";
 import type {
@@ -26,7 +27,10 @@ export interface HabitForm {
 	occurrenceCount: number;
 }
 
-export function habitToForm(habit: HabitViewModel): HabitForm {
+export function habitToForm(
+	habit: HabitViewModel,
+	untilDate: DateType,
+): HabitForm {
 	const repeat = habit.repeat;
 
 	const defaultForm: HabitForm = {
@@ -37,7 +41,7 @@ export function habitToForm(habit: HabitViewModel): HabitForm {
 		repeatEvery: 1,
 		daysOfWeek: [],
 		durationType: "forever",
-		untilDate: convertDateToIso(currentDate()),
+		untilDate: convertDateToIso(untilDate),
 		occurrenceCount: 10,
 	};
 
@@ -104,16 +108,16 @@ export function formToHabitDTO(form: HabitForm): HabitInputModel {
 	};
 }
 
-export function emptyHabitForm(): HabitForm {
+export function getEmptyHabitForm(startDate: DateType): HabitForm {
 	return {
 		name: "",
-		startDate: convertDateToIso(currentDate()),
+		startDate: convertDateToIso(startDate),
 		repeatEnabled: false,
 		repeatEvery: 1,
 		repeatKind: "day",
 		daysOfWeek: [],
 		durationType: "forever",
-		untilDate: convertDateToIso(addMonths(currentDate(), 1)),
+		untilDate: convertDateToIso(addMonths(startDate, 1)),
 		occurrenceCount: 10,
 	};
 }

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import DrawerDialog from "@/components/ui/drawer-dialog/drawer-dialog.vue";
 import AddHabitForm from "@/features/habit/add-habit-form/add-habit-form.vue";
+import type { DateType } from "@/lib/date";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
 
 const props = defineProps<{
 	headerLabel: string;
 	habit?: HabitViewModel;
+	selectedDate: DateType;
 }>();
 
 const emits = defineEmits<{
@@ -23,6 +25,7 @@ const emits = defineEmits<{
 		<template #default="{ close }">
 			<AddHabitForm
 				:habit="props.habit"
+				:selected-date="selectedDate"
 				@submit="
 					(habit) => {
 						close();

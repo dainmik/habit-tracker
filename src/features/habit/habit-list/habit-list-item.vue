@@ -94,6 +94,7 @@ const iconInfo = (habit: HabitViewModel) => {
 				<AddHabitFormDrawer
 					header-label="Edit habit"
 					:habit="habit"
+					:selected-date="date"
 					@submit="(updatedHabit) => onEdit(habit.id, updatedHabit)"
 				>
 					<template #trigger="{ open }">

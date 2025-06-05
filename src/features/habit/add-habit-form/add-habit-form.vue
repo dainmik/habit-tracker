@@ -14,17 +14,19 @@ import {
 import Switch from "@/components/ui/switch/switch.vue";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
-	emptyHabitForm,
 	formToHabitDTO,
+	getEmptyHabitForm,
 	habitToForm,
 	type HabitForm,
 } from "@/features/habit/add-habit-form/add-habit-form-mapper";
+import type { DateType } from "@/lib/date";
 import type { HabitInputModel } from "@/model/habit/habit-input-model";
 import type { HabitViewModel } from "@/model/habit/habit-view-model";
 import { reactive, watch } from "vue";
 
 const props = defineProps<{
 	habit?: HabitViewModel;
+	selectedDate: DateType;
 }>();
 
 const emits = defineEmits<{
@@ -52,15 +54,16 @@ const durationOptions = [
 	{ name: "After occurrences", value: "afterOccurrences" },
 ];
 
-const form = reactive<HabitForm>(emptyHabitForm());
+const emptyHabitForm = getEmptyHabitForm(props.selectedDate);
+const form = reactive<HabitForm>(emptyHabitForm);
 
 watch(
 	() => props.habit,
 	(newHabit) => {
 		if (newHabit) {
-			Object.assign(form, habitToForm(newHabit));
+			Object.assign(form, habitToForm(newHabit, props.selectedDate));
 		} else {
-			Object.assign(form, emptyHabitForm());
+			Object.assign(form, emptyHabitForm);
 		}
 	},
 	{ immediate: true },
@@ -74,7 +77,7 @@ const handleSubmit = () => {
 };
 
 function resetForm() {
-	Object.assign(form, emptyHabitForm());
+	Object.assign(form, emptyHabitForm);
 }
 </script>
 

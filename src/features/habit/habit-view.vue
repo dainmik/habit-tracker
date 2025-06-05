@@ -12,9 +12,9 @@ const props = defineProps<{
 	date: DateType;
 }>();
 
-const selectedDay = ref(props.date);
+const selectedDate = ref(props.date);
 watchEffect(() => {
-	selectedDay.value = props.date;
+	selectedDate.value = props.date;
 });
 
 const {
@@ -24,15 +24,15 @@ const {
 	editHabit,
 	toggleActiveStatus,
 	toggleHabitCompletion,
-} = useHabits(selectedDay);
+} = useHabits(selectedDate);
 </script>
 
 <template>
 	<DaySelect
-		:selected-date="selectedDay"
+		:selected-date="selectedDate"
 		@date-selected="
 			(date) => {
-				selectedDay = date;
+				selectedDate = date;
 			}
 		"
 	/>
@@ -42,10 +42,10 @@ const {
 		:habits="habitsDueOnDate"
 	>
 		<HabitListItem
-			:date="selectedDay"
+			:date="selectedDate"
 			:habit="habit"
-			:on-toggle-completed="(id) => toggleHabitCompletion(id, selectedDay)"
-			:on-toggle-status="(id) => toggleActiveStatus(id, selectedDay)"
+			:on-toggle-completed="(id) => toggleHabitCompletion(id, selectedDate)"
+			:on-toggle-status="(id) => toggleActiveStatus(id, selectedDate)"
 			:on-edit="(id, updatedHabit) => editHabit(id, updatedHabit)"
 			:on-delete="(id) => deleteHabit(id)"
 			:expanded-item-i-d="expandedItemID"
@@ -53,7 +53,11 @@ const {
 		/>
 	</HabitList>
 
-	<AddHabitFormDrawer header-label="New habit" @submit="addHabit">
+	<AddHabitFormDrawer
+		header-label="New habit"
+		:selected-date="selectedDate"
+		@submit="addHabit"
+	>
 		<template #trigger="{ open }">
 			<div class="mt-auto w-full">
 				<Button size="full" @click="open">Add Habit</Button>
