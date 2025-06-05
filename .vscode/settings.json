@@ -10,6 +10,12 @@
 	"editor.quickSuggestions": {
 		"strings": "on"
 	},
+	"eslint.workingDirectories": [
+		// eslint.workingDirectories added by Turbopack
+		{
+			"mode": "auto"
+		}
+	],
 	"files.associations": {
 		"*.css": "tailwindcss"
 	},

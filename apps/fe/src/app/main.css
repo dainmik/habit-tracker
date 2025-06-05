@@ -1,7 +1,4 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
+@import "@repo/shared-config-tailwind";
 
 @theme inline {
 	--color-background: var(--background);
@@ -117,8 +114,4 @@
 	* {
 		@apply border-border focus-visible:ring-ring focus-visible:ring-[3px] focus-visible:outline-none;
 	}
-}
-
-@utility scrollbar-none {
-	scrollbar-width: none;
 }

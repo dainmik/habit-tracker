@@ -6,6 +6,7 @@
 		"vue.volar",
 		"editorconfig.editorconfig",
 		"bradlc.vscode-tailwindcss",
-		"stylelint.vscode-stylelint"
+		"stylelint.vscode-stylelint",
+		"vercel.turbo-vsc"
 	]
 }

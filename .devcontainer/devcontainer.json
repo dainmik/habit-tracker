@@ -4,15 +4,7 @@
 	"name": "Ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:noble",
-	"features": {
-		"ghcr.io/devcontainers/features/node:1": {
-			"nodeGypDependencies": true,
-			"installYarnUsingApt": true,
-			"version": "latest",
-			"pnpmVersion": "latest",
-			"nvmVersion": "latest"
-		}
-	},
+	"features": {},
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -22,10 +14,12 @@
 				"ms-playwright.playwright",
 				"EditorConfig.EditorConfig",
 				"bradlc.vscode-tailwindcss",
-				"stylelint.vscode-stylelint"
+				"stylelint.vscode-stylelint",
+				"Vercel.turbo-vsc"
 			]
 		}
-	}
+	},
+	"onCreateCommand": "./scripts/setup.sh"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

@@ -1,0 +1,12 @@
+{
+	"private": true,
+	"name": "@repo/shared-config-tailwind",
+	"type": "module",
+	"exports": {
+		".": "./shared.css"
+	},
+	"devDependencies": {
+		"tailwindcss": "^4.1.8",
+		"tw-animate-css": "^1.3.4"
+	}
+}

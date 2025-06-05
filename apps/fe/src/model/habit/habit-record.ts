@@ -24,7 +24,6 @@ export class HabitRecord extends Entity {
 		};
 	}
 
-	static fromDTO = (dto: HabitRecordPersistenceModel) => {
-		return new HabitRecord(dto.habitId, parseISO(dto.date), dto.completed);
-	};
+	static fromDTO = (dto: HabitRecordPersistenceModel) =>
+		new HabitRecord(dto.habitId, parseISO(dto.date), dto.completed);
 }

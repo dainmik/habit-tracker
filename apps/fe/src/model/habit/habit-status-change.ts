@@ -24,7 +24,6 @@ export class HabitStatusChange extends Entity {
 		};
 	}
 
-	static fromDTO = (dto: HabitStatusChangePersistenceModel) => {
-		return new HabitStatusChange(dto.habitId, parseISO(dto.date), dto.status);
-	};
+	static fromDTO = (dto: HabitStatusChangePersistenceModel) =>
+		new HabitStatusChange(dto.habitId, parseISO(dto.date), dto.status);
 }

@@ -38,11 +38,8 @@ const HABIT_NAME_ICONS = {
 	},
 };
 
-const iconInfo = (habit: HabitViewModel) => {
-	return habit.completed
-		? HABIT_NAME_ICONS.completed
-		: HABIT_NAME_ICONS.inProgress;
-};
+const iconInfo = (habit: HabitViewModel) =>
+	habit.completed ? HABIT_NAME_ICONS.completed : HABIT_NAME_ICONS.inProgress;
 </script>
 <template>
 	<button
