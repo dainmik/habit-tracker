@@ -6,6 +6,8 @@ import { LocalStorageHabitRepository } from "@/model/habit/local-storage-habit-r
 export function seedHabits(date: DateType) {
 	const service = new HabitService(new LocalStorageHabitRepository());
 
+	globalThis.localStorage.removeItem("habits");
+
 	const today = date;
 
 	const newHabits = [

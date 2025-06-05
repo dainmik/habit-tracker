@@ -4,6 +4,7 @@
 
 1. `pnpm install`
 1. `pnpm build && pnpm preview`
+1. Go to `http://localhost:5173/day/2025-06-05/seed` (or enter other date) to seed the local storage with some pre-created example habits. See [seed-habits.ts](./src/app/seed-habits.ts) to see what habits will be created.
 
 ## Feature Roadmap
 
@@ -20,8 +21,8 @@ Habit list:
 - [ ] Add filtering options to display or hide habits based on habit completion, active/paused status
 - [ ] Add sorting options to sort by name, status, completion
 - [ ] Display useful information on each habit card
-  - [ ] current streak
-  - [ ] message if habit scheduled to end at some point is going to end soon and functionality to extend its duration
+  - [ ] Current streak
+  - [ ] Message if habit scheduled to end at some point is going to end soon and functionality to extend its duration
 
 Add/edit habit forms:
 
