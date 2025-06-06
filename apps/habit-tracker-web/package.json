@@ -6,6 +6,8 @@
 		"dev": "vite",
 		"build": "run-p type-check \"build-only {@}\" --",
 		"preview": "vite preview",
+		"test-unit": "vitest run",
+		"test-unit:watch": "vitest --watch",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build",
 		"lint": "eslint . --fix && pnpm stylelint \"src/**/*.{vue,css}\" --fix",
@@ -32,9 +34,11 @@
 		"@repo/shared-config-eslint": "workspace:*",
 		"@repo/shared-config-tailwind": "workspace:*",
 		"@repo/shared-config-typescript": "workspace:*",
+		"@repo/shared-config-vitest": "workspace:*",
 		"@tailwindcss/vite": "^4.1.8",
 		"@types/node": "^22.15.29",
 		"@vitejs/plugin-vue": "^5.2.4",
+		"@vitest/coverage-istanbul": "^3.2.2",
 		"@vue/tsconfig": "^0.7.0",
 		"eslint": "^9.28.0",
 		"jiti": "^2.4.2",
@@ -48,6 +52,7 @@
 		"typescript": "~5.8.3",
 		"vite": "^6.3.5",
 		"vite-plugin-vue-devtools": "^7.7.6",
+		"vitest": "^3.2.2",
 		"vue-tsc": "^2.2.10"
 	}
 }

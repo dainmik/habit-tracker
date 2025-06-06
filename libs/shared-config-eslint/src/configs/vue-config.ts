@@ -4,10 +4,8 @@ import {
 	vueTsConfigs,
 } from "@vue/eslint-config-typescript";
 import pluginVue from "eslint-plugin-vue";
-import pluginVueA11y from "eslint-plugin-vuejs-accessibility";
 
-// eslint-disable-next-line import-x/no-default-export
-export default defineConfigWithVueTs([
+export const esLintVueConfig = defineConfigWithVueTs([
 	{
 		name: "Vue Typescript",
 		files: ["**/*.{ts,vue}"],
@@ -38,23 +36,6 @@ export default defineConfigWithVueTs([
 				"error",
 				{
 					ignorePatterns: [],
-				},
-			],
-		},
-	},
-	// @ts-expect-error Config object relies on non-exact optional properties for flexibility. We do not control 3rd-party types. See: https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
-	{
-		// https://vue-a11y.github.io/eslint-plugin-vuejs-accessibility/
-		name: "Accessibility",
-		files: ["**/*.vue"],
-		extends: [pluginVueA11y.configs["flat/recommended"]],
-		rules: {
-			"vuejs-accessibility/label-has-for": [
-				"error",
-				{
-					components: ["Label"],
-					controlComponents: ["Input"],
-					required: "id",
 				},
 			],
 		},

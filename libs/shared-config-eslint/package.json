@@ -13,6 +13,7 @@
 	"exports": {
 		"./base": "./src/configs/base.ts",
 		"./playwright": "./src/configs/playwright.ts",
+		"./vitest": "./src/configs/vitest.ts",
 		"./vue": "./src/configs/vue-config.ts"
 	},
 	"devDependencies": {
@@ -23,6 +24,7 @@
 		"@types/node": "^22.15.29",
 		"@typescript-eslint/parser": "^8.33.1",
 		"@typescript-eslint/utils": "^8.33.1",
+		"@vitest/eslint-plugin": "^1.2.1",
 		"@vue/eslint-config-prettier": "^10.2.0",
 		"@vue/eslint-config-typescript": "^14.5.0",
 		"eslint": "^9.28.0",
@@ -34,7 +36,6 @@
 		"eslint-plugin-playwright": "^2.2.0",
 		"eslint-plugin-unicorn": "^59.0.1",
 		"eslint-plugin-vue": "~10.1.0",
-		"eslint-plugin-vuejs-accessibility": "^2.4.1",
 		"jiti": "^2.4.2",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.33.1"

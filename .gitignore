@@ -1,9 +1,7 @@
 # Common system & build artifacts
-node_modules
 .DS_Store
 dist
 dist-ssr
-coverage
 *.local
 
 # Logs
@@ -19,6 +17,9 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# Node
+node_modules
+
 # Playwright
 **/*e2e/test-results/
 **/*e2e/playwright-report/
@@ -30,3 +31,7 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Vitest
+coverage
+coverage.json

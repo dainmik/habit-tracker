@@ -1,0 +1,9 @@
+{
+	"extends": "@repo/shared-config-typescript/base",
+	"compilerOptions": {
+		"rootDir": ".",
+		"outDir": "dist"
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
+}

@@ -10,8 +10,7 @@ import { eslintRules } from "#rules/eslint.ts";
 import { getCombinedGitignoreConfig } from "#utils/get-combined-gitignore.ts";
 import tsEslint, { configs } from "typescript-eslint";
 
-// eslint-disable-next-line import-x/no-default-export
-export default tsEslint.config([
+export const esLintBaseConfig = tsEslint.config([
 	getCombinedGitignoreConfig(),
 
 	...turboConfig,

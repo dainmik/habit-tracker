@@ -9,7 +9,6 @@
 		// https://www.totaltypescript.com/cannot-redeclare-block-scoped-variable#solution-3-your-module-isnt-a-module
 		"moduleDetection": "force",
 		"module": "nodenext",
-		"strict": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true
 	},
