@@ -22,65 +22,48 @@ export type DateType = TZDate;
 const timeZone = "Europe/Vilnius";
 const timeZoneOptions = { in: tz(timeZone) };
 
-export function currentDate() {
-	return new TZDate(new Date(), timeZone);
-}
+export const currentDate = () => new TZDate(new Date(), timeZone);
 
-export function parseISO(iso: IsoDateString) {
-	return _parseISO(iso, timeZoneOptions);
-}
+export const parseISO = (iso: IsoDateString) => _parseISO(iso, timeZoneOptions);
 
-export function convertDateToIso(date: DateType): IsoDateString {
-	return format(date, "yyyy-MM-dd", timeZoneOptions);
-}
+export const convertDateToIso = (date: DateType): IsoDateString =>
+	format(date, "yyyy-MM-dd", timeZoneOptions);
 
-export function addDays(date: DateType, number: number) {
-	return _addDays(date, number, timeZoneOptions);
-}
+export const addDays = (date: DateType, number: number) =>
+	_addDays(date, number, timeZoneOptions);
 
-export function addWeeks(date: DateType, number: number) {
-	return _addWeeks(date, number, timeZoneOptions);
-}
+export const addWeeks = (date: DateType, number: number) =>
+	_addWeeks(date, number, timeZoneOptions);
 
-export function addMonths(date: DateType, number: number) {
-	return _addMonths(date, number, timeZoneOptions);
-}
+export const addMonths = (date: DateType, number: number) =>
+	_addMonths(date, number, timeZoneOptions);
 
-export function getDayOfMonthNumber(date: DateType) {
-	return _getDate(date, timeZoneOptions);
-}
+export const getDayOfMonthNumber = (date: DateType) =>
+	_getDate(date, timeZoneOptions);
 
 /**
  * Mo, Tu, We, ..., Su
  */
-export function getWeekdayNameTruncated(date: DateType) {
-	return format(date, "EEEEEE", timeZoneOptions);
-}
+export const getWeekdayNameTruncated = (date: DateType) =>
+	format(date, "EEEEEE", timeZoneOptions);
 
-export function isAfter(date: DateType, dateToCompare: DateType) {
-	return _isAfter(date, dateToCompare);
-}
+export const isAfter = (date: DateType, dateToCompare: DateType) =>
+	_isAfter(date, dateToCompare);
 
-export function isBefore(date: DateType, dateToCompare: DateType) {
-	return _isBefore(date, dateToCompare);
-}
+export const isBefore = (date: DateType, dateToCompare: DateType) =>
+	_isBefore(date, dateToCompare);
 
-export function isSameDay(dateOne: DateType, dateTwo: DateType) {
-	return _isSameDay(dateOne, dateTwo, timeZoneOptions);
-}
-export function isToday(date: DateType) {
-	return _isToday(date, timeZoneOptions);
-}
+export const isSameDay = (dateOne: DateType, dateTwo: DateType) =>
+	_isSameDay(dateOne, dateTwo, timeZoneOptions);
 
-export function startOfToday() {
-	return _startOfToday(timeZoneOptions);
-}
+export const isToday = (date: DateType) => _isToday(date, timeZoneOptions);
 
-export function startOfDay(date: DateType) {
-	return _startOfDay(date, timeZoneOptions);
-}
+export const startOfToday = () => _startOfToday(timeZoneOptions);
 
-export function isValid(date: IsoDateString) {
+export const startOfDay = (date: DateType) =>
+	_startOfDay(date, timeZoneOptions);
+
+export const isValid = (date: IsoDateString) => {
 	const parsed = parseISO(date);
 	return _isValid(parsed);
-}
+};

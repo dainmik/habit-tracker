@@ -1,4 +1,3 @@
-import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import eslintConfigPrettier from "eslint-config-prettier";
@@ -6,16 +5,14 @@ import turboConfig from "eslint-config-turbo/flat";
 import checkFile from "eslint-plugin-check-file";
 import { flatConfigs } from "eslint-plugin-import-x";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
-import tsEslint, { configs } from "typescript-eslint";
 
-import path from "node:path";
-import { cwd } from "node:process";
-import { eslintStylisticRules } from "../rules/eslint-stylistic.ts";
+import tsEslint, { configs } from "typescript-eslint";
 import { eslintRules } from "../rules/eslint.ts";
+import { getCombinedGitignoreConfig } from "../utils/get-combined-gitignore.js";
 
 // eslint-disable-next-line import-x/no-default-export
 export default tsEslint.config([
-	includeIgnoreFile(path.resolve(cwd(), ".gitignore")),
+	getCombinedGitignoreConfig(),
 
 	...turboConfig,
 	{
@@ -31,12 +28,12 @@ export default tsEslint.config([
 			// https://typescript-eslint.io/getting-started/typed-linting
 			parserOptions: {
 				projectService: true,
-				tsconfigRootDir: import.meta.dirname,
+				tsconfigRootDir: "../",
 			},
 		},
 		rules: {
-			...eslintRules.rules,
-			...eslintStylisticRules.rules,
+			...eslintRules,
+
 			"@typescript-eslint/restrict-template-expressions": [
 				"error",
 				{
@@ -45,6 +42,12 @@ export default tsEslint.config([
 					allowBoolean: true,
 				},
 			],
+
+			// https://typescript-eslint.io/rules/no-unnecessary-condition/
+			"@typescript-eslint/no-unnecessary-condition": [
+				"error",
+				{ allowConstantLoopConditions: "always" },
+			],
 		},
 	},
 	{
@@ -52,14 +55,9 @@ export default tsEslint.config([
 		files: ["**/*.{ts,vue}"],
 		extends: [
 			// https://github.com/sindresorhus/eslint-plugin-unicorn
-			eslintPluginUnicorn.configs.all,
+			eslintPluginUnicorn.configs.recommended,
 		],
 		rules: {
-			/*
-			 * It's infrequent to confuse 'new Foo' with 'newFoo'.
-			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-keyword-prefix.md
-			 */
-			"unicorn/no-keyword-prefix": "off",
 			/*
 			 * Null is semantically different from undefined. Null means 'explicitly set to no value' while undefined means 'the value is implicitly absent'.
 			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-null.md
@@ -75,19 +73,7 @@ export default tsEslint.config([
 			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prevent-abbreviations.md
 			 */
 			"unicorn/prevent-abbreviations": "off",
-			/*
-			 * This rule cannot distinguish between window.postMessage() and other calls like Worker#postMessage(), MessagePort#postMessage(), Client#postMessage(), and BroadcastChannel#postMessage().
-			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-post-message-target-origin.md
-			 */
-			"unicorn/require-post-message-target-origin": "off",
 		},
-	},
-	{
-		// https://eslint.style/guide/why
-		name: "Stylistic ESLint",
-		files: ["**/*.{ts,vue}"],
-		// plugins: { "@stylistic": stylistic },
-		extends: [stylistic.configs.recommended],
 	},
 	{
 		name: "Import Export",
@@ -95,6 +81,10 @@ export default tsEslint.config([
 		extends: [flatConfigs.recommended, flatConfigs.typescript],
 		rules: {
 			"import-x/no-default-export": "error",
+
+			// https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/no-mutable-exports.md
+			"import-x/no-mutable-exports": "error",
+
 			// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md
 			"import-x/no-restricted-paths": [
 				"error",
@@ -143,6 +133,13 @@ export default tsEslint.config([
 				},
 			],
 		},
+	},
+	{
+		// https://eslint.style/guide/why
+		name: "Stylistic ESLint",
+		files: ["**/*.{ts,vue}"],
+		// plugins: { "@stylistic": stylistic },
+		extends: [stylistic.configs.recommended],
 	},
 	eslintConfigPrettier,
 	// {

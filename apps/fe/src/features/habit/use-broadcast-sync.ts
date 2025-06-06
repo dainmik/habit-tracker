@@ -5,7 +5,7 @@ interface BroadcastMessage<T = unknown> {
 	payload?: T;
 }
 
-export function useBroadcastSync<T = unknown>(channelName: string) {
+export const useBroadcastSync = <T = unknown>(channelName: string) => {
 	const channel = new BroadcastChannel(channelName);
 	const listeners = ref<((msg: BroadcastMessage<T>) => void)[]>([]);
 
@@ -39,4 +39,4 @@ export function useBroadcastSync<T = unknown>(channelName: string) {
 		postMessage,
 		subscribe,
 	};
-}
+};

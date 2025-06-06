@@ -1,12 +1,12 @@
 import { nextTick, onMounted, onUnmounted, type Ref } from "vue";
 
-export function useInfiniteScroll(
+export const useInfiniteScroll = (
 	scroller: Ref<HTMLElement | undefined>,
 	startSentinel: Ref<HTMLElement | undefined>,
 	endSentinel: Ref<HTMLElement | undefined>,
 	onReachStart: () => Promise<void> | void,
 	onReachEnd: () => void,
-) {
+) => {
 	let startObserver: IntersectionObserver | undefined;
 	let endObserver: IntersectionObserver | undefined;
 
@@ -23,8 +23,8 @@ export function useInfiniteScroll(
 				void (async () => {
 					if (!scroller.value) return;
 
-					const scrollLeft = scroller.value.scrollLeft;
-					const scrollWidth = scroller.value.scrollWidth;
+					const { scrollLeft } = scroller.value;
+					const { scrollWidth } = scroller.value;
 
 					await onReachStart();
 
@@ -60,4 +60,4 @@ export function useInfiniteScroll(
 		startObserver?.disconnect();
 		endObserver?.disconnect();
 	});
-}
+};

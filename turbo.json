@@ -1,14 +1,17 @@
 {
 	"$schema": "https://turborepo.com/schema.json",
 	"ui": "tui",
+	"globalEnv": ["REPO_WORKSPACE_ROOT"],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
+			"env": ["BASE_URL"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": [".next/**", "!.next/cache/**"]
 		},
 		"lint": {
-			"dependsOn": ["^lint"]
+			"dependsOn": ["^lint"],
+			"env": ["CI"]
 		},
 		"check-types": {
 			"dependsOn": ["^check-types"]

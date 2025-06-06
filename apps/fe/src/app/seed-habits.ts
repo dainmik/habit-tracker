@@ -3,7 +3,7 @@ import type { Habit } from "@/model/habit/habit";
 import { HabitService } from "@/model/habit/habit-service";
 import { LocalStorageHabitRepository } from "@/model/habit/local-storage-habit-repository";
 
-export function seedHabits(date: DateType) {
+export const seedHabits = (date: DateType) => {
 	const service = new HabitService(new LocalStorageHabitRepository());
 
 	globalThis.localStorage.removeItem("habits");
@@ -133,4 +133,4 @@ export function seedHabits(date: DateType) {
 	for (const habit of newHabits) {
 		service.addHabit(habit as Habit);
 	}
-}
+};

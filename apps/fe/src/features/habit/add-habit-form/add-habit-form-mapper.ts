@@ -27,11 +27,11 @@ export interface HabitForm {
 	occurrenceCount: number;
 }
 
-export function habitToForm(
+export const habitToForm = (
 	habit: HabitViewModel,
 	untilDate: DateType,
-): HabitForm {
-	const repeat = habit.repeat;
+): HabitForm => {
+	const { repeat } = habit;
 
 	const defaultForm: HabitForm = {
 		name: habit.name,
@@ -47,7 +47,7 @@ export function habitToForm(
 
 	if (!repeat) return defaultForm;
 
-	const duration = repeat.duration;
+	const { duration } = repeat;
 	const durationType = duration.type;
 
 	return {
@@ -65,9 +65,9 @@ export function habitToForm(
 				: convertDateToIso(currentDate()),
 		occurrenceCount: duration.type === "afterOccurrences" ? duration.count : 10,
 	};
-}
+};
 
-export function formToHabitDTO(form: HabitForm): HabitInputModel {
+export const formToHabitDTO = (form: HabitForm): HabitInputModel => {
 	let repeat: Repeat | undefined = undefined;
 
 	if (form.repeatEnabled) {
@@ -106,9 +106,9 @@ export function formToHabitDTO(form: HabitForm): HabitInputModel {
 			repeat,
 		},
 	};
-}
+};
 
-export function getEmptyHabitForm(startDate: DateType): HabitForm {
+export const getEmptyHabitForm = (startDate: DateType): HabitForm => {
 	return {
 		name: "",
 		startDate: convertDateToIso(startDate),
@@ -120,4 +120,4 @@ export function getEmptyHabitForm(startDate: DateType): HabitForm {
 		untilDate: convertDateToIso(addMonths(startDate, 1)),
 		occurrenceCount: 10,
 	};
-}
+};

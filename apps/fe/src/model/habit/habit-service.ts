@@ -18,18 +18,17 @@ import type { HabitRepository } from "@/model/habit/habit-repository";
 import { habitToViewModel } from "@/model/habit/habit-view-model";
 import { differenceInDays } from "date-fns";
 
-function getWeekday(date: Date) {
-	return date
+const getWeekday = (date: Date) =>
+	date
 		.toLocaleDateString("en-US", { weekday: "long" })
 		.toLowerCase() as WeekRepeat["daysOfWeek"][number];
-}
 
 /**
  * This function will get messy if we need to add more rules.
  * TODO: Consider refactoring when touching this code.
  */
-function isHabitDueOn(habit: Habit, targetDate: DateType) {
-	const repeat = habit.schedule.repeat;
+const isHabitDueOn = (habit: Habit, targetDate: DateType) => {
+	const { repeat } = habit.schedule;
 	const habitStartDate = parseISO(habit.schedule.startDate);
 	const startAndTargetAreSameDay = isSameDay(targetDate, habitStartDate);
 
@@ -41,29 +40,28 @@ function isHabitDueOn(habit: Habit, targetDate: DateType) {
 		return startAndTargetAreSameDay;
 	}
 
-	const duration = repeat.duration;
+	const { duration } = repeat;
 
 	const handleRepeatFrequency = (date: DateType) => {
 		// TODO: encapsulate date-fns functions into date.ts library
 		if (repeat.type === "day") {
 			const dayDifference = differenceInDays(date, habitStartDate);
 			return dayDifference % repeat.everyNumberOfDays === 0;
-		} else {
-			const weekday = getWeekday(date);
-			const repeatWeekdays =
-				repeat.daysOfWeek.length > 0 ? repeat.daysOfWeek : WEEKDAYS;
-
-			if (!repeatWeekdays.includes(weekday)) {
-				return false;
-			}
-
-			const dayDifference = differenceInDays(
-				addWeeks(habitStartDate, repeat.everyNumberOfWeeks),
-				habitStartDate,
-			);
-
-			return dayDifference % repeat.everyNumberOfWeeks === 0;
 		}
+		const weekday = getWeekday(date);
+		const repeatWeekdays =
+			repeat.daysOfWeek.length > 0 ? repeat.daysOfWeek : WEEKDAYS;
+
+		if (!repeatWeekdays.includes(weekday)) {
+			return false;
+		}
+
+		const dayDifference = differenceInDays(
+			addWeeks(habitStartDate, repeat.everyNumberOfWeeks),
+			habitStartDate,
+		);
+
+		return dayDifference % repeat.everyNumberOfWeeks === 0;
 	};
 
 	if (duration.type === "untilDate") {
@@ -96,7 +94,7 @@ function isHabitDueOn(habit: Habit, targetDate: DateType) {
 	}
 
 	return handleRepeatFrequency(targetDate);
-}
+};
 
 export class HabitService {
 	constructor(private repository: HabitRepository) {}

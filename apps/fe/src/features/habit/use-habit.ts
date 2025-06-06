@@ -8,7 +8,7 @@ import { shallowRef, watchEffect, type Ref } from "vue";
 
 const service = new HabitService(new LocalStorageHabitRepository());
 
-export function useHabits(date: Ref<DateType>) {
+export const useHabits = (date: Ref<DateType>) => {
 	const sync = useBroadcastSync("habit-sync");
 
 	sync.subscribe(({ type }) => {
@@ -20,54 +20,52 @@ export function useHabits(date: Ref<DateType>) {
 	const habits = shallowRef<HabitViewModel[]>([]);
 	const habitsDueOnDate = shallowRef<HabitViewModel[]>([]);
 
-	watchEffect(refresh);
-
-	function refresh() {
+	const refresh = () => {
 		habits.value = service.getHabits(date.value);
 		habitsDueOnDate.value = service.getHabitsDueOnDate(date.value);
-	}
+	};
 
-	function doSync() {
+	watchEffect(refresh);
+
+	const doSync = () => {
 		sync.postMessage({ type: "habits-updated" });
-	}
+	};
 
-	function addHabit(item: HabitInputModel) {
+	const addHabit = (item: HabitInputModel) => {
 		service.addHabit(item);
 		doSync();
 		refresh();
-	}
+	};
 
-	function deleteHabit(id: string) {
+	const deleteHabit = (id: string) => {
 		service.deleteHabit(id);
 		doSync();
 		refresh();
-	}
+	};
 
-	function editHabit(id: string, habit: HabitInputModel) {
+	const editHabit = (id: string, habit: HabitInputModel) => {
 		service.editHabit(id, habit);
 		doSync();
 		refresh();
-	}
+	};
 
-	function toggleActiveStatus(id: string, date: DateType) {
+	const toggleActiveStatus = (id: string, date: DateType) => {
 		service.toggleStatus(id, date);
 		doSync();
 		refresh();
-	}
+	};
 
-	function toggleHabitCompletion(id: string, date: DateType) {
+	const toggleHabitCompletion = (id: string, date: DateType) => {
 		service.toggleCompletion(id, date);
 		doSync();
 		refresh();
-	}
+	};
 
-	function canToggleCompletion(id: string, date: DateType) {
-		return service.canToggleCompletion(id, date);
-	}
+	const canToggleCompletion = (id: string, date: DateType) =>
+		service.canToggleCompletion(id, date);
 
-	function canToggleStatus(id: string, date: DateType) {
-		return service.canToggleStatus(id, date);
-	}
+	const canToggleStatus = (id: string, date: DateType) =>
+		service.canToggleStatus(id, date);
 
 	return {
 		habits,
@@ -80,4 +78,4 @@ export function useHabits(date: Ref<DateType>) {
 		canToggleCompletion,
 		canToggleStatus,
 	};
-}
+};

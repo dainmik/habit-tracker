@@ -25,10 +25,17 @@ install_turbo() {
     turbo telemetry disable
 }
 
+set_repo_workspace_root_env_var() {
+	echo 'export REPO_WORKSPACE_ROOT="$PWD"' >> ~/.bashrc
+	source ~/.bashrc
+}
+
 main() {
     install_node
     install_pnpm
     install_turbo
+
+	set_repo_workspace_root_env_var()
 }
 
 main

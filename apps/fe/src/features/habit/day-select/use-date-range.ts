@@ -7,41 +7,41 @@ import {
 } from "@/lib/date";
 import { ref } from "vue";
 
-function generateDates(
+const generateDates = (
 	startDate: DateType,
 	bufferDays: number,
-): IsoDateString[] {
+): IsoDateString[] => {
 	const dates: IsoDateString[] = [];
 	for (let i = -bufferDays; i <= bufferDays; i++) {
 		const date = addDays(startDate, i);
 		dates.push(convertDateToIso(date));
 	}
 	return dates;
-}
+};
 
-export function useDateRange(initialCenterDate: DateType, bufferDays = 5) {
+export const useDateRange = (initialCenterDate: DateType, bufferDays = 5) => {
 	const dates = ref<IsoDateString[]>([]);
 	dates.value = generateDates(initialCenterDate, bufferDays);
 
-	function addBefore(baseISO: string) {
+	const addBefore = (baseISO: string) => {
 		const base = parseISO(baseISO);
 		const newDates = Array.from({ length: bufferDays }, (_, i) =>
 			convertDateToIso(addDays(base, -i - 1)),
 		).reverse();
 		dates.value.unshift(...newDates);
-	}
+	};
 
-	function addAfter(baseISO: string) {
+	const addAfter = (baseISO: string) => {
 		const base = parseISO(baseISO);
 		const newDates = Array.from({ length: bufferDays }, (_, i) =>
 			convertDateToIso(addDays(base, i + 1)),
 		);
 		dates.value.push(...newDates);
-	}
+	};
 
 	return {
 		dates,
 		addBefore,
 		addAfter,
 	};
-}
+};
