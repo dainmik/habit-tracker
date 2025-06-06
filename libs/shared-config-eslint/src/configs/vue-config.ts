@@ -42,6 +42,7 @@ export default defineConfigWithVueTs([
 			],
 		},
 	},
+	// @ts-expect-error Config object relies on non-exact optional properties for flexibility. We do not control 3rd-party types. See: https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
 	{
 		// https://vue-a11y.github.io/eslint-plugin-vuejs-accessibility/
 		name: "Accessibility",

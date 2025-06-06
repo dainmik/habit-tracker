@@ -10,6 +10,8 @@ import process from "node:process";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+// @ts-expect-error Config object relies on non-exact optional properties for flexibility. We do not control 3rd-party types. See: https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
 // eslint-disable-next-line import-x/no-default-export
 export default defineConfig({
 	testDir: "./e2e",

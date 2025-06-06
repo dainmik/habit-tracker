@@ -1,4 +1,5 @@
 {
+	"extends": "@repo/shared-config-typescript/base",
 	"compilerOptions": {
 		"noEmit": true,
 		"allowImportingTsExtensions": true,

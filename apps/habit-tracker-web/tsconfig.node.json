@@ -1,5 +1,5 @@
 {
-	"extends": "@tsconfig/node24/tsconfig.json",
+	"extends": "@repo/shared-config-typescript/node",
 	"include": [
 		"vite.config.*",
 		"vitest.config.*",
@@ -11,6 +11,8 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+
+		"allowImportingTsExtensions": true,
 
 		"module": "ESNext",
 		"moduleResolution": "Bundler",

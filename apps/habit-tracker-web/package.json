@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"name": "@repo/habit-tracker",
+	"name": "@repo/habit-tracker-web",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -34,8 +34,8 @@
 		"@playwright/test": "^1.52.0",
 		"@repo/shared-config-eslint": "workspace:*",
 		"@repo/shared-config-tailwind": "workspace:*",
+		"@repo/shared-config-typescript": "workspace:*",
 		"@tailwindcss/vite": "^4.1.8",
-		"@tsconfig/node24": "^24.0.1",
 		"@types/node": "^22.15.29",
 		"@vitejs/plugin-vue": "^5.2.4",
 		"@vue/tsconfig": "^0.7.0",

@@ -6,9 +6,9 @@ import checkFile from "eslint-plugin-check-file";
 import { flatConfigs } from "eslint-plugin-import-x";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
+import { eslintRules } from "#rules/eslint.ts";
+import { getCombinedGitignoreConfig } from "#utils/get-combined-gitignore.ts";
 import tsEslint, { configs } from "typescript-eslint";
-import { eslintRules } from "../rules/eslint.ts";
-import { getCombinedGitignoreConfig } from "../utils/get-combined-gitignore.js";
 
 // eslint-disable-next-line import-x/no-default-export
 export default tsEslint.config([

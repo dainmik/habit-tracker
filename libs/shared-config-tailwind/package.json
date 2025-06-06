@@ -3,7 +3,7 @@
 	"name": "@repo/shared-config-tailwind",
 	"type": "module",
 	"exports": {
-		".": "./shared.css"
+		".": "./src/shared.css"
 	},
 	"devDependencies": {
 		"tailwindcss": "^4.1.8",

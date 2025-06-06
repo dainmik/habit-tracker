@@ -1,4 +1,4 @@
-import { FlatConfig, includeIgnoreFile } from "@eslint/compat";
+import { type FlatConfig, includeIgnoreFile } from "@eslint/compat";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { cwd } from "node:process";
