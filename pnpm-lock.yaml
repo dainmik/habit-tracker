@@ -261,12 +261,6 @@ importers:
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
-      '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.2)
-      '@vitest/ui':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.2)
       eslint:
         specifier: ^9.28.0
         version: 9.28.0(jiti@2.4.2)
@@ -288,9 +282,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-      vitest:
-        specifier: ^3.2.2
-        version: 3.2.2(@types/node@22.15.29)(@vitest/ui@3.2.2)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)
 
   libs/ui-vue:
     devDependencies:
@@ -4821,6 +4812,7 @@ snapshots:
       tinyglobby: 0.2.14
       tinyrainbow: 2.0.0
       vitest: 3.2.2(@types/node@22.15.29)(@vitest/ui@3.2.2)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)
+    optional: true
 
   '@vitest/utils@3.2.2':
     dependencies:
@@ -5718,7 +5710,8 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.2
 
-  fflate@0.8.2: {}
+  fflate@0.8.2:
+    optional: true
 
   figures@6.1.0:
     dependencies:
