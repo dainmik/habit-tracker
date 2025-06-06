@@ -14,7 +14,7 @@ import process from "node:process";
 // @ts-expect-error Config object relies on non-exact optional properties for flexibility. We do not control 3rd-party types. See: https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes
 // eslint-disable-next-line import-x/no-default-export
 export default defineConfig({
-	testDir: "./e2e",
+	testDir: "./src",
 	/* Maximum time one test can run for. */
 	timeout: 30 * 1000,
 	expect: {
@@ -106,7 +106,9 @@ export default defineConfig({
 		 * Use the preview server on CI for more realistic testing.
 		 * Playwright will re-use the local server if there is already a dev-server running.
 		 */
-		command: process.env.CI ? "npm run preview" : "npm run dev",
+		command: process.env.CI
+			? "turbo --filter @repo/habit-tracker-web preview"
+			: "turbo --filter @repo/habit-tracker-web dev",
 		port: process.env.CI ? 4173 : 5173,
 		reuseExistingServer: !process.env.CI,
 	},

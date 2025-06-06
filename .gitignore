@@ -1,14 +1,15 @@
-# Logs
-logs
-*.log
-pnpm-debug.log*
-
+# Common system & build artifacts
 node_modules
 .DS_Store
 dist
 dist-ssr
 coverage
 *.local
+
+# Logs
+logs
+*.log
+pnpm-debug.log*
 
 # Editor directories and files
 .idea
@@ -18,9 +19,14 @@ coverage
 *.sln
 *.sw?
 
-*.tsbuildinfo
+# Playwright
+**/*e2e/test-results/
+**/*e2e/playwright-report/
+**/*e2e/blob-report/
+**/*e2e/playwright/.cache/
 
-test-results/
-playwright-report/
-
+# Turborepo
 .turbo
+
+# TypeScript
+*.tsbuildinfo

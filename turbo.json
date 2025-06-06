@@ -13,12 +13,16 @@
 			"dependsOn": ["^lint"],
 			"env": ["CI"]
 		},
-		"check-types": {
-			"dependsOn": ["^check-types"]
+		"type-check": {
+			"dependsOn": ["^type-check"]
 		},
 		"dev": {
 			"cache": false,
 			"persistent": true
+		},
+		"test:e2e": {
+			"dependsOn": ["^build"],
+			"passThroughEnv": ["PLAYWRIGHT_*"]
 		}
 	}
 }

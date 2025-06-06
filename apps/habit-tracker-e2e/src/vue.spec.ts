@@ -1,4 +1,4 @@
-import { expect, Page, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const currentDateISOString = new Date().toISOString().slice(0, 10);
 

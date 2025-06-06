@@ -18,6 +18,30 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  apps/habit-tracker-e2e:
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.52.0
+        version: 1.52.0
+      '@repo/shared-config-eslint':
+        specifier: workspace:*
+        version: link:../../libs/shared-config-eslint
+      '@repo/shared-config-typescript':
+        specifier: workspace:*
+        version: link:../../libs/shared-config-typescript
+      '@types/node':
+        specifier: ^22.15.29
+        version: 22.15.29
+      eslint:
+        specifier: ^9.28.0
+        version: 9.28.0(jiti@2.4.2)
+      prettier:
+        specifier: 3.5.3
+        version: 3.5.3
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+
   apps/habit-tracker-web:
     dependencies:
       '@date-fns/tz':

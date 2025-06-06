@@ -1,0 +1,21 @@
+{
+	"private": true,
+	"name": "@repo/habit-tracker-e2e",
+	"type": "module",
+	"scripts": {
+		"test:e2e": "playwright test",
+		"type-check": "tsc --noEmit",
+		"lint": "eslint . --fix",
+		"format": "prettier --write src/",
+		"bootstrap": "pnpm exec playwright install-deps && pnpm exec playwright install"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.52.0",
+		"@repo/shared-config-eslint": "workspace:*",
+		"@repo/shared-config-typescript": "workspace:*",
+		"@types/node": "^22.15.29",
+		"eslint": "^9.28.0",
+		"prettier": "3.5.3",
+		"typescript": "~5.8.3"
+	}
+}

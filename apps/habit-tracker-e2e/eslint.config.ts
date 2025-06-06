@@ -1,5 +1,5 @@
 import base from "@repo/shared-config-eslint/base";
-import vue from "@repo/shared-config-eslint/vue";
+import playwright from "@repo/shared-config-eslint/playwright";
 
 // eslint-disable-next-line import-x/no-default-export
-export default [...base, ...vue];
+export default [...base, ...playwright];

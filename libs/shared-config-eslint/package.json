@@ -2,6 +2,11 @@
 	"private": true,
 	"name": "@repo/shared-config-eslint",
 	"type": "module",
+	"scripts": {
+		"type-check": "tsc --noEmit",
+		"lint": "eslint . --fix",
+		"format": "prettier --write src/"
+	},
 	"imports": {
 		"#*": "./src/*"
 	},
