@@ -7,6 +7,7 @@
 		"editorconfig.editorconfig",
 		"bradlc.vscode-tailwindcss",
 		"stylelint.vscode-stylelint",
-		"vercel.turbo-vsc"
+        "vercel.turbo-vsc",
+        "yoavbls.pretty-ts-errors"
 	]
 }

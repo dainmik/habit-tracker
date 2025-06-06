@@ -15,7 +15,8 @@
 				"EditorConfig.EditorConfig",
 				"bradlc.vscode-tailwindcss",
 				"stylelint.vscode-stylelint",
-				"Vercel.turbo-vsc"
+				"Vercel.turbo-vsc",
+				"YoavBls.pretty-ts-errors"
 			]
 		}
 	},
