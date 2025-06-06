@@ -18,7 +18,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  apps/fe:
+  apps/habit-tracker-web:
     dependencies:
       '@date-fns/tz':
         specifier: ^1.2.0
