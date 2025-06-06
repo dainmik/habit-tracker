@@ -7,7 +7,7 @@
 		"build": "run-p type-check \"build-only {@}\" --",
 		"preview": "vite preview",
 		"test-unit": "vitest run",
-		"test-unit:watch": "vitest --watch",
+		"test-unit:watch": "vitest watch",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build",
 		"lint": "eslint . --fix && pnpm stylelint \"src/**/*.{vue,css}\" --fix",
