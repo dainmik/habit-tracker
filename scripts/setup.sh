@@ -6,7 +6,7 @@ install_node() {
     TEMP_DIR=$(mktemp -d)
     NODE_SETUP_SCRIPT="$TEMP_DIR/nodesource_setup.sh"
     echo "Downloading Node.js setup script..."
-    curl -fsSL https://deb.nodesource.com/setup_23.x -o "$NODE_SETUP_SCRIPT"
+    curl -fsSL https://deb.nodesource.com/setup_24.x -o "$NODE_SETUP_SCRIPT"
     sudo bash "$NODE_SETUP_SCRIPT"
     rm "$NODE_SETUP_SCRIPT"
     sudo apt-get update
