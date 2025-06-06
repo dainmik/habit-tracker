@@ -35,7 +35,7 @@ main() {
     install_pnpm
     install_turbo
 
-	set_repo_workspace_root_env_var()
+	set_repo_workspace_root_env_var
 }
 
 main
