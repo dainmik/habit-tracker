@@ -6,8 +6,8 @@
 		"#*": "./src/*"
 	},
 	"exports": {
-		"./base": "./dist/configs/base.js",
-		"./ui": "./dist/configs/ui.js"
+		"./base": "./dist/src/configs/base.js",
+		"./ui": "./dist/src/configs/ui.js"
 	},
 	"scripts": {
 		"build": "tsc",
@@ -26,6 +26,7 @@
 		"nyc": "^17.1.0",
 		"open-cli": "^8.0.0",
 		"serve": "^14.2.4",
-		"typescript": "^5.8.3"
+		"typescript": "^5.8.3",
+		"vitest": "^3.2.2"
 	}
 }
