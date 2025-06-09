@@ -33,10 +33,10 @@ const delegatedProps = reactiveOmit(props, "class");
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-function pagingFunc(date: DateValue, sign: -1 | 1) {
+const pagingFunc = (date: DateValue, sign: -1 | 1) => {
 	if (sign === -1) return date.subtract({ years: 1 });
 	return date.add({ years: 1 });
-}
+};
 </script>
 
 <template>

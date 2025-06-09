@@ -25,12 +25,12 @@ defineProps<{
 const isDesktop = useMediaQuery("(min-width: 768px)");
 const isOpen = ref(false);
 
-function open() {
+const open = () => {
 	isOpen.value = true;
-}
-function close() {
+};
+const close = () => {
 	isOpen.value = false;
-}
+};
 </script>
 
 <template>

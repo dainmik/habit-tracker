@@ -61,7 +61,7 @@ useInfiniteScroll(
 	},
 );
 
-function scrollByPage(direction: "left" | "right") {
+const scrollByPage = (direction: "left" | "right") => {
 	const container = scroller.value;
 	const items = itemsRefs.value;
 
@@ -78,7 +78,7 @@ function scrollByPage(direction: "left" | "right") {
 		left: direction === "right" ? scrollDistance : -scrollDistance,
 		behavior: "smooth",
 	});
-}
+};
 
 const isButtonActive = (iso: IsoDateString) =>
 	iso === convertDateToIso(props.selectedDate);

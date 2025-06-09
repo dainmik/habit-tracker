@@ -76,9 +76,9 @@ const handleSubmit = () => {
 	resetForm();
 };
 
-function resetForm() {
+const resetForm = () => {
 	Object.assign(form, emptyHabitForm);
-}
+};
 </script>
 
 <template>
