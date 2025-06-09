@@ -30,12 +30,18 @@ set_repo_workspace_root_env_var() {
 	source ~/.bashrc
 }
 
+install_dependencies() {
+	pnpm install
+	pnpm --filter=@repo/habit-tracker-e2e run bootstrap
+}
+
 main() {
     install_node
     install_pnpm
     install_turbo
 
 	set_repo_workspace_root_env_var
+	install_dependencies
 }
 
 main
