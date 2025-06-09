@@ -7,6 +7,7 @@ import { flatConfigs } from "eslint-plugin-import-x";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
 import { eslintRules } from "#rules/eslint.ts";
+import { typescriptEslintRules } from "#rules/typescript-eslint.ts";
 import { getCombinedGitignoreConfig } from "#utils/get-combined-gitignore.ts";
 import tsEslint, { configs } from "typescript-eslint";
 
@@ -32,26 +33,12 @@ export const esLintBaseConfig = tsEslint.config([
 		},
 		rules: {
 			...eslintRules,
-
-			"@typescript-eslint/restrict-template-expressions": [
-				"error",
-				{
-					// We allow for number and boolean to avoid having to call String constructor or toString method inside template literals because their string representations are reasonably well defined and generally purposeful, unlike other types such as object, undefined, null.
-					allowNumber: true,
-					allowBoolean: true,
-				},
-			],
-
-			// https://typescript-eslint.io/rules/no-unnecessary-condition/
-			"@typescript-eslint/no-unnecessary-condition": [
-				"error",
-				{ allowConstantLoopConditions: "always" },
-			],
+			...typescriptEslintRules,
 		},
 	},
 	{
 		name: "General JavaScript",
-		files: ["**/*.{ts,vue}"],
+		files: ["**/*.{ts,tsx,vue}"],
 		extends: [
 			// https://github.com/sindresorhus/eslint-plugin-unicorn
 			eslintPluginUnicorn.configs.recommended,
@@ -76,7 +63,7 @@ export const esLintBaseConfig = tsEslint.config([
 	},
 	{
 		name: "Import Export",
-		files: ["**/*.{ts,vue}"],
+		files: ["**/*.{ts,tsx,vue}"],
 		extends: [flatConfigs.recommended, flatConfigs.typescript],
 		rules: {
 			"import-x/no-default-export": "error",
@@ -110,7 +97,7 @@ export const esLintBaseConfig = tsEslint.config([
 	},
 	{
 		name: "File",
-		files: ["**/*.{ts,vue}"],
+		files: ["**/*.{ts,tsx,vue}"],
 		plugins: {
 			"check-file": checkFile,
 		},
@@ -136,7 +123,7 @@ export const esLintBaseConfig = tsEslint.config([
 	{
 		// https://eslint.style/guide/why
 		name: "Stylistic ESLint",
-		files: ["**/*.{ts,vue}"],
+		files: ["**/*.{ts,tsx,vue}"],
 		// plugins: { "@stylistic": stylistic },
 		extends: [stylistic.configs.recommended],
 	},

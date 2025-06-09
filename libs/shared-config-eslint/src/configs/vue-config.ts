@@ -1,3 +1,4 @@
+import { typescriptEslintRules } from "#rules/typescript-eslint.ts";
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import {
 	defineConfigWithVueTs,
@@ -30,6 +31,8 @@ export const esLintVueConfig = defineConfigWithVueTs([
 					ignorePatterns: [],
 				},
 			],
+
+			...typescriptEslintRules,
 		},
 	},
 	skipFormatting,
