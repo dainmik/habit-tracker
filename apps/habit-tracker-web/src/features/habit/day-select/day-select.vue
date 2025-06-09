@@ -97,6 +97,7 @@ const isButtonActive = (iso: IsoDateString) =>
 		</div>
 		<nav class="flex w-full items-center gap-2">
 			<button
+				title="See more earlier dates"
 				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
 				@click="scrollByPage('left')"
 			>
@@ -129,6 +130,7 @@ const isButtonActive = (iso: IsoDateString) =>
 			</div>
 
 			<button
+				title="See more later dates"
 				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
 				@click="scrollByPage('right')"
 			>

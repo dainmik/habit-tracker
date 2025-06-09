@@ -45,6 +45,7 @@ const iconInfo = (habit: HabitViewModel) =>
 	<button
 		ref="item"
 		class="h-full w-full rounded-2xl border"
+		:title="habit.name"
 		:aria-label="habit.name"
 		:class="{
 			'opacity-60': habit.activeStatus === 'paused',
@@ -73,6 +74,11 @@ const iconInfo = (habit: HabitViewModel) =>
 				<button
 					v-if="habit.canToggleCompletion"
 					id="toggle-completion"
+					:title="
+						habit.completed
+							? 'Mark habit as incomplete'
+							: 'Mark habit as complete'
+					"
 					:aria-label="
 						habit.completed
 							? 'Mark habit as incomplete'
@@ -96,6 +102,7 @@ const iconInfo = (habit: HabitViewModel) =>
 				>
 					<template #trigger="{ open }">
 						<button
+							title="Edit habit"
 							aria-label="Edit habit"
 							class="transition-transform hover:scale-125 focus-visible:scale-125"
 							@click.stop="open"
@@ -107,6 +114,11 @@ const iconInfo = (habit: HabitViewModel) =>
 
 				<button
 					v-if="habit.canToggleStatus"
+					:title="
+						habit.activeStatus === 'active'
+							? 'Mark habit as inactive'
+							: 'Mark habit as active'
+					"
 					:aria-label="
 						habit.activeStatus === 'active'
 							? 'Mark habit as inactive'
@@ -122,6 +134,7 @@ const iconInfo = (habit: HabitViewModel) =>
 				</button>
 
 				<button
+					title="Delete habit"
 					aria-label="Delete habit"
 					class="transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onDelete(habit.id)"
