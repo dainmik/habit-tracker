@@ -1,14 +1,35 @@
 # Habit Tracker
 
-## Getting Started
+## Install
 
-1. `pnpm install`
-1. `pnpm build && pnpm preview`
-1. Go to `http://localhost:5173/day/2025-06-05/seed` (or enter other date) to seed the local storage with some pre-created example habits. See [seed-habits.ts](./src/app/seed-habits.ts) to see what habits will be created.
+To install it, use [pnpm](https://pnpm.io/).
+
+1. Clone the repository.
+1. Install packages:
+
+   ```sh
+   pnpm install
+   ```
+
+# Use
+
+- To develop the app, run the dev script:
+
+  ```sh
+  pnpm dev
+  ```
+
+  - (_optional_) To seed some pre-created habits, visit `http://localhost:5173/day/2025-06-05/seed` (or enter other date) to seed the local storage with some pre-created example habits.
+
+- To use the app, first build it and then run the preview script:
+
+  ```sh
+  pnpm build && pnpm preview
+  ```
 
 ## Feature Roadmap
 
-Some important features that would improve the UX and the robostness of the app were cut to fit into the deadline:
+Some important features that would improve the UX and the robustness of the app were cut to fit into the deadline:
 
 Navigation between days:
 
