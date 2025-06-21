@@ -2,7 +2,7 @@
 import ErrorBoundary from "@/app/components/error-boundary.vue";
 import NotFoundPage from "@/app/pages/not-found-page.vue";
 import { HabitView } from "@/features/habit";
-import { isValid, parseISO, startOfToday, type DateType } from "@/lib/date";
+import { isValid, parseISO, startOfToday, type DateType } from "@repo/date";
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import DrawerDialog from "@/components/ui/drawer-dialog/drawer-dialog.vue";
 import AddHabitForm from "@/features/habit/add-habit-form/add-habit-form.vue";
-import type { DateType } from "@/lib/date";
-import type { HabitInputModel } from "@/model/habit/habit-input-model";
-import type { HabitViewModel } from "@/model/habit/habit-view-model";
+import type { DateType } from "@repo/date";
+import type { HabitInputModel } from "@repo/habit-tracker-data/model";
 
 const props = defineProps<{
 	headerLabel: string;
-	habit?: HabitViewModel;
+	habit: HabitInputModel | null;
 	selectedDate: DateType;
 }>();
 

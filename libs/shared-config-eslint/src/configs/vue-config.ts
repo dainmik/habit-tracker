@@ -1,4 +1,4 @@
-import { typescriptEslintRules } from "#rules/typescript-eslint.ts";
+import { typescriptEslintRules } from "#rules/typescript-eslint";
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import {
 	defineConfigWithVueTs,

@@ -3,18 +3,32 @@
 	"name": "@repo/shared-config-eslint",
 	"type": "module",
 	"scripts": {
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"build": "tsc -p tsconfig.build.json",
 		"type-check": "tsc --noEmit",
 		"lint": "eslint . --fix",
 		"format": "prettier --write src/"
 	},
-	"imports": {
-		"#*": "./src/*"
-	},
 	"exports": {
-		"./base": "./src/configs/base.ts",
-		"./playwright": "./src/configs/playwright.ts",
-		"./vitest": "./src/configs/vitest.ts",
-		"./vue": "./src/configs/vue-config.ts"
+		"./base": {
+			"types": "./src/configs/base.ts",
+			"default": "./dist/configs/base.js"
+		},
+		"./playwright": {
+			"types": "./src/configs/playwright.ts",
+			"default": "./dist/configs/playwright.js"
+		},
+		"./vitest": {
+			"types": "./src/configs/vitest.ts",
+			"default": "./dist/configs/vitest.js"
+		},
+		"./vue": {
+			"types": "./src/configs/vue-config.ts",
+			"default": "./dist/configs/vue-config.js"
+		}
+	},
+	"imports": {
+		"#*": "./dist/*.js"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.9",

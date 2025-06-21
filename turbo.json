@@ -1,7 +1,7 @@
 {
 	"$schema": "https://turborepo.com/schema.json",
 	"ui": "tui",
-	"globalEnv": ["REPO_WORKSPACE_ROOT"],
+	"globalEnv": ["REPO_WORKSPACE_ROOT", "DB_URL"],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],

@@ -28,10 +28,10 @@ The goals of this project is to:
 The workspace-level `app` directory contains independently deployable applications:
 
 - [Habit tracker front-end app](./apps/habit-tracker-web/README.md)
-- Habit tracker back-end app (not yet implemented)
+- [Habit tracker back-end app](./apps/habit-tracker-api/README.md)
 - [End-to-end test suite app](./apps/habit-tracker-e2e/README.md)
 
-The workspace-level `libs` directory contains packages that are used by the apps, as well as shared packages that may be used by other adjacent.
+The workspace-level `libs` directory contains packages that are used by the apps, as well as shared packages that may be used by other adjacent packages.
 
 ## Install
 
@@ -40,7 +40,7 @@ The project was tested to work on Linux and [Windows Subsystem for Linux](https:
 The project requires certain software to be installed. For the quickest and best results, I recommend using [Visual Studio Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/tutorial). If you're using a dev container, the required software will be installed in the dev container automatically. If you're not using a dev container, inspect and run the [scripts/setup.sh](./scripts/setup.sh) script to install the required software.
 
 1. Clone the repository.
-1. (_When not using a dev container_) Inspect and run the [scripts/setup.sh](./scripts/setup.sh) executable.
+1. (_When not using a dev container_) Inspect and run the [scripts/setup.sh](./scripts/setup.sh) executable:
    ```sh
    ./scripts/setup.sh
    ```

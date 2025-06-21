@@ -4,7 +4,7 @@ import {
 	getWeekdayNameTruncated,
 	parseISO,
 	type IsoDateString,
-} from "@/lib/date";
+} from "@repo/date";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 

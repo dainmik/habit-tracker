@@ -1,0 +1,33 @@
+{
+	"private": true,
+	"name": "@repo/date",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/date.ts",
+			"default": "./dist/date.js"
+		}
+	},
+	"scripts": {
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"build": "tsc -p tsconfig.build.json",
+		"test-unit": "vitest run",
+		"test-unit:watch": "vitest watch",
+		"lint": "eslint . --max-warnings 0",
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@date-fns/tz": "^1.2.0",
+		"date-fns": "^4.1.0"
+	},
+	"devDependencies": {
+		"@repo/shared-config-eslint": "workspace:*",
+		"@repo/shared-config-typescript": "workspace:*",
+		"@repo/shared-config-vitest": "workspace:*",
+		"@types/node": "^22.15.29",
+		"@vitest/coverage-istanbul": "^3.2.2",
+		"eslint": "^9.28.0",
+		"typescript": "^5.8.3",
+		"vitest": "^3.2.2"
+	}
+}

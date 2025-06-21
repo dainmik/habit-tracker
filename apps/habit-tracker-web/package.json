@@ -3,7 +3,7 @@
 	"name": "@repo/habit-tracker-web",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "../../scripts/with-env.sh ../../env/.env vite",
 		"build": "run-p type-check \"build-only {@}\" --",
 		"preview": "vite preview",
 		"test-unit": "vitest run",
@@ -14,19 +14,21 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
-		"@date-fns/tz": "^1.2.0",
 		"@internationalized/date": "^3.8.2",
+		"@repo/date": "workspace:*",
+		"@repo/habit-tracker-data": "workspace:*",
+		"@vee-validate/zod": "^4.15.1",
 		"@vueuse/core": "^13.3.0",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
-		"date-fns": "^4.1.0",
 		"lucide-vue-next": "^0.513.0",
-		"pinia": "^3.0.3",
 		"reka-ui": "^2.3.0",
 		"tailwind-merge": "^3.3.0",
 		"vaul-vue": "^0.4.1",
+		"vee-validate": "^4.15.1",
 		"vue": "^3.5.16",
-		"vue-router": "^4.5.1"
+		"vue-router": "^4.5.1",
+		"zod": "^3.25.67"
 	},
 	"devDependencies": {
 		"@iconify-json/radix-icons": "^1.2.2",

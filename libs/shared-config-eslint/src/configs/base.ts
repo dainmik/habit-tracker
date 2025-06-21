@@ -6,9 +6,9 @@ import checkFile from "eslint-plugin-check-file";
 import { flatConfigs } from "eslint-plugin-import-x";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
-import { eslintRules } from "#rules/eslint.ts";
-import { typescriptEslintRules } from "#rules/typescript-eslint.ts";
-import { getCombinedGitignoreConfig } from "#utils/get-combined-gitignore.ts";
+import { eslintRules } from "#rules/eslint";
+import { typescriptEslintRules } from "#rules/typescript-eslint";
+import { getCombinedGitignoreConfig } from "#utils/get-combined-gitignore";
 import tsEslint, { configs } from "typescript-eslint";
 
 export const esLintBaseConfig = tsEslint.config([
@@ -54,8 +54,13 @@ export const esLintBaseConfig = tsEslint.config([
 			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md
 			 */
 			"unicorn/no-array-for-each": "off",
+			/**
+			 * if-else is often more readable in multiline statements.
+			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-ternary.md
+			 */
+			"unicorn/prefer-ternary": ["error", "only-single-line"],
 			/*
-			 * The rule does not account for arbitrary abbreviations, and generally very commoon abbreviations such as 'utils -> utilities', 'e -> event', are generally not confusing among developers.
+			 * The rule does not account for arbitrary abbreviations, and generally very common abbreviations such as 'utils -> utilities', 'e -> event', are generally not confusing among developers.
 			 * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prevent-abbreviations.md
 			 */
 			"unicorn/prevent-abbreviations": "off",
@@ -70,29 +75,6 @@ export const esLintBaseConfig = tsEslint.config([
 
 			// https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/no-mutable-exports.md
 			"import-x/no-mutable-exports": "error",
-
-			// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md
-			"import-x/no-restricted-paths": [
-				"error",
-				{
-					zones: [
-						{
-							from: "./src/app",
-							target: "./src/features",
-						},
-						{
-							from: ["./src/app", "./src/features"],
-							target: [
-								"./src/adapters",
-								"./src/assets",
-								"./src/components",
-								"./src/lib",
-								"./src/model",
-							],
-						},
-					],
-				},
-			],
 		},
 	},
 	{

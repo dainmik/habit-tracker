@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { HabitViewModel } from "@/model/habit/habit-view-model";
+import type { HabitDTO } from "@repo/habit-tracker-data/model";
 import { ref } from "vue";
 
 defineProps<{
-	habits: HabitViewModel[];
+	habits: HabitDTO[];
 }>();
 
 const expandedItemID = ref("");

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
 	DateFormatter,
-	type DateValue,
 	getLocalTimeZone,
 	parseDate,
+	type DateValue,
 } from "@internationalized/date";
 import { CalendarIcon } from "lucide-vue-next";
 
@@ -15,9 +15,10 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { convertDateToIso, parseISO, type DateType } from "@repo/date";
 import { onMounted, ref, watch } from "vue";
 
-const model = defineModel<string>();
+const model = defineModel<DateType>();
 
 const value = ref<DateValue>();
 
@@ -25,11 +26,11 @@ onMounted(() => {
 	if (!model.value) {
 		return;
 	}
-	value.value = parseDate(model.value);
+	value.value = parseDate(convertDateToIso(model.value));
 });
 
 watch(value, (newValue) => {
-	model.value = newValue?.toString();
+	model.value = newValue ? parseISO(newValue.toString()) : undefined;
 });
 
 const df = new DateFormatter("en-US", {

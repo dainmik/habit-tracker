@@ -1,71 +1,81 @@
+import { trpc } from "@/app/config";
 import { useBroadcastSync } from "@/features/habit/use-broadcast-sync";
-import type { DateType } from "@/lib/date";
-import type { HabitInputModel } from "@/model/habit/habit-input-model";
-import { HabitService } from "@/model/habit/habit-service";
-import type { HabitViewModel } from "@/model/habit/habit-view-model";
-import { LocalStorageHabitRepository } from "@/model/habit/local-storage-habit-repository";
+import type { DateType } from "@repo/date";
+import { convertDateToIso } from "@repo/date";
+import type { HabitDTO, HabitInputModel } from "@repo/habit-tracker-data/model";
 import { shallowRef, watchEffect, type Ref } from "vue";
-
-const service = new HabitService(new LocalStorageHabitRepository());
 
 export const useHabits = (date: Ref<DateType>) => {
 	const sync = useBroadcastSync("habit-sync");
 
 	sync.subscribe(({ type }) => {
 		if (type === "habits-updated") {
-			refresh();
+			void refresh();
 		}
 	});
 
-	const habits = shallowRef<HabitViewModel[]>([]);
-	const habitsDueOnDate = shallowRef<HabitViewModel[]>([]);
+	const habits = shallowRef<HabitDTO[]>([]);
+	const habitsDueOnDate = shallowRef<HabitDTO[]>([]);
 
-	const refresh = () => {
-		habits.value = service.getHabits(date.value);
-		habitsDueOnDate.value = service.getHabitsDueOnDate(date.value);
+	const refresh = async () => {
+		habits.value = await trpc.habits.getAll.query(convertDateToIso(date.value));
+		habitsDueOnDate.value = await trpc.habits.getDue.query(
+			convertDateToIso(date.value),
+		);
 	};
 
-	watchEffect(refresh);
+	watchEffect(() => {
+		void refresh();
+	});
 
 	const doSync = () => {
 		sync.postMessage({ type: "habits-updated" });
 	};
 
-	const addHabit = (item: HabitInputModel) => {
-		service.addHabit(item);
+	const addHabit = async (item: HabitInputModel) => {
+		await trpc.habits.add.mutate(item);
 		doSync();
-		refresh();
+		await refresh();
 	};
 
-	const deleteHabit = (id: string) => {
-		service.deleteHabit(id);
+	const deleteHabit = async (id: string) => {
+		await trpc.habits.delete.mutate({ id });
 		doSync();
-		refresh();
+		await refresh();
 	};
 
-	const editHabit = (id: string, habit: HabitInputModel) => {
-		service.editHabit(id, habit);
+	const editHabit = async (id: string, habit: HabitInputModel) => {
+		await trpc.habits.edit.mutate({ id, habit });
 		doSync();
-		refresh();
+		await refresh();
 	};
 
-	const toggleActiveStatus = (id: string, date: DateType) => {
-		service.toggleStatus(id, date);
+	const toggleActiveStatus = async (id: string, date: DateType) => {
+		await trpc.habits.toggleStatus.mutate({ id, date: convertDateToIso(date) });
 		doSync();
-		refresh();
+		await refresh();
 	};
 
-	const toggleHabitCompletion = (id: string, date: DateType) => {
-		service.toggleCompletion(id, date);
+	const toggleHabitCompletion = async (id: string, date: DateType) => {
+		await trpc.habits.toggleCompletion.mutate({
+			id,
+			date: convertDateToIso(date),
+		});
 		doSync();
-		refresh();
+		await refresh();
 	};
 
-	const canToggleCompletion = (id: string, date: DateType) =>
-		service.canToggleCompletion(id, date);
+	const canToggleCompletion = async (id: string, date: DateType) =>
+		await trpc.habits.canToggleCompletion.query({
+			id,
+			date: convertDateToIso(date),
+		});
 
-	const canToggleStatus = (id: string, date: DateType) =>
-		service.canToggleStatus(id, date);
+	const canToggleStatus = async (id: string, date: DateType) =>
+		await trpc.habits.canToggleStatus.query({
+			id,
+			date: convertDateToIso(date),
+		});
 
 	return {
 		habits,

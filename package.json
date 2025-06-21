@@ -3,10 +3,10 @@
 	"name": "repo",
 	"scripts": {
 		"build": "turbo run build",
-		"dev": "turbo run dev",
-		"lint": "turbo run lint",
+		"dev": "turbo run dev --continue",
+		"lint": "turbo run lint --continue",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"type-check": "turbo run type-check"
+		"type-check": "turbo run type-check --continue"
 	},
 	"devDependencies": {
 		"prettier": "^3.5.3",

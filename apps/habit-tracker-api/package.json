@@ -1,0 +1,32 @@
+{
+	"private": true,
+	"name": "@repo/habit-tracker-api",
+	"type": "module",
+	"imports": {
+		"#*": "./src/*.ts"
+	},
+	"scripts": {
+		"dev": "node --env-file=../../env/.env --watch src/index.ts",
+		"start": "node --env-file=../../env/.env src/index.ts",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint . --max-warnings 0",
+		"type-check": "tsc --noEmit"
+	},
+	"packageManager": "pnpm@10.11.1",
+	"dependencies": {
+		"@repo/habit-tracker-data": "workspace:*",
+		"cors": "^2.8.5",
+		"express": "^5.1.0",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"@repo/shared-config-eslint": "workspace:*",
+		"@repo/shared-config-typescript": "workspace:*",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.3",
+		"@types/node": "^22.15.29",
+		"eslint": "^9.28.0",
+		"tsx": "^4.20.3",
+		"typescript": "~5.8.3"
+	}
+}

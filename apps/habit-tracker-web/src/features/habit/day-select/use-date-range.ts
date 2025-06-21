@@ -4,7 +4,7 @@ import {
 	parseISO,
 	type DateType,
 	type IsoDateString,
-} from "@/lib/date";
+} from "@repo/date";
 import { ref } from "vue";
 
 const generateDates = (

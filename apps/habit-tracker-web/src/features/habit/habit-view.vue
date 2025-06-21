@@ -5,7 +5,7 @@ import DaySelect from "@/features/habit/day-select/day-select.vue";
 import HabitListItem from "@/features/habit/habit-list/habit-list-item.vue";
 import HabitList from "@/features/habit/habit-list/habit-list.vue";
 import { useHabits } from "@/features/habit/use-habit";
-import { type DateType } from "@/lib/date";
+import { type DateType } from "@repo/date";
 import { computed } from "vue";
 
 const props = defineProps<{
@@ -45,6 +45,7 @@ const {
 
 	<AddHabitFormDrawer
 		header-label="New habit"
+		:habit="null"
 		:selected-date="selectedDate"
 		@submit="addHabit"
 	>

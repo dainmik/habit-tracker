@@ -8,7 +8,7 @@ defineOptions({
 
 const props = defineProps<{
 	id?: string;
-	modelValue: boolean;
+	modelValue?: boolean;
 }>();
 const emits = defineEmits<{
 	"update:modelValue": [payload: boolean];

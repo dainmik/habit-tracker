@@ -28,12 +28,12 @@ const findGitignoresUp = (startDir: string, endDir?: string) => {
 };
 
 export const getCombinedGitignoreConfig = () => {
-	const repoWorksapceRoot = process.env.REPO_WORKSPACE_ROOT;
-	if (!repoWorksapceRoot) {
-		throw new Error("REPO_WORKSPACE_ROOT environamnet variable is not set.");
+	const repoWorkspaceRoot = process.env.REPO_WORKSPACE_ROOT;
+	if (!repoWorkspaceRoot) {
+		throw new Error("REPO_WORKSPACE_ROOT environment variable is not set.");
 	}
 
-	const gitignorePaths = findGitignoresUp(cwd(), repoWorksapceRoot);
+	const gitignorePaths = findGitignoresUp(cwd(), repoWorkspaceRoot);
 
 	const ignoreSet = new Set<string>(
 		gitignorePaths

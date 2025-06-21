@@ -1,4 +1,4 @@
-import { defineRuleEntries } from "#utils/define-rule-entries.ts";
+import { defineRuleEntries } from "#utils/define-rule-entries";
 
 export const eslintRules = defineRuleEntries({
 	// https://eslint.org/docs/latest/rules/arrow-body-style

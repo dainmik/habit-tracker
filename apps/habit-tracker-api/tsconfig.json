@@ -1,0 +1,9 @@
+{
+	"extends": "@repo/shared-config-typescript/node",
+	"compilerOptions": {
+		"noEmit": true,
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+
+		"allowImportingTsExtensions": true
+	}
+}

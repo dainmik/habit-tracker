@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import AddHabitFormDrawer from "@/features/habit/add-habit-form/add-habit-form-drawer.vue";
-import { type DateType } from "@/lib/date";
 import { ICONS } from "@/lib/icons";
-import type { HabitInputModel } from "@/model/habit/habit-input-model";
-import type { HabitViewModel } from "@/model/habit/habit-view-model";
 import { Icon } from "@iconify/vue";
+import { type DateType } from "@repo/date";
+import type { HabitDTO, HabitInputModel } from "@repo/habit-tracker-data/model";
 import { useTemplateRef } from "vue";
 
 const props = defineProps<{
 	date: DateType;
-	habit: HabitViewModel;
+	habit: HabitDTO;
 	onToggleCompleted: (id: string) => void;
 	onEdit: (id: string, updatedHabit: HabitInputModel) => void;
 	onToggleStatus: (id: string) => void;
@@ -38,7 +37,7 @@ const HABIT_NAME_ICONS = {
 	},
 };
 
-const iconInfo = (habit: HabitViewModel) =>
+const iconInfo = (habit: HabitDTO) =>
 	habit.completed ? HABIT_NAME_ICONS.completed : HABIT_NAME_ICONS.inProgress;
 </script>
 <template>

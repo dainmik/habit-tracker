@@ -19,8 +19,6 @@ To install it, use [pnpm](https://pnpm.io/).
   pnpm dev
   ```
 
-  - (_optional_) To seed some pre-created habits, visit `http://localhost:5173/day/2025-06-05/seed` (or enter other date) to seed the local storage with some pre-created example habits.
-
 - To use the app, first build it and then run the preview script:
 
   ```sh
@@ -47,7 +45,7 @@ Habit list:
 
 Add/edit habit forms:
 
-- [ ] Client-side (presentation layer) and server-side (application layer) validation for add/edit habit forms
+- [x] Client-side (presentation layer) and server-side (application layer) validation for add/edit habit forms
 - [ ] Isolate focus to the date picker so that pressing outside of it closes the picker and does not click other input fields
 
 Habit deletion:

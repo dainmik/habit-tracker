@@ -3,8 +3,8 @@
 	"name": "@repo/shared-config-typescript",
 	"type": "module",
 	"exports": {
-		"./base": "./src/base.json",
-		"./node": "./src/node.json"
+		"./base": "./src/tsconfig.base.json",
+		"./node": "./src/tsconfig.node.json"
 	},
 	"devDependencies": {
 		"@tsconfig/node-ts": "^23.6.1",
