@@ -6,11 +6,18 @@
 		"#*": "./src/*"
 	},
 	"exports": {
-		"./base": "./dist/src/configs/base.js",
-		"./ui": "./dist/src/configs/ui.js"
+		"./base": {
+			"types": "./src/configs/base.ts",
+			"default": "./dist/configs/base.js"
+		},
+		"./ui": {
+			"types": "./src/configs/ui.ts",
+			"default": "./dist/configs/ui.js"
+		}
 	},
 	"scripts": {
-		"build": "tsc",
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"build": "tsc -p tsconfig.build.json",
 		"type-check": "tsc --noEmit",
 		"lint": "eslint . --fix",
 		"collect-json-reports": "node dist/scripts/collect-json-outputs.js",
