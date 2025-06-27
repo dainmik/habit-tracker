@@ -1,3 +1,4 @@
+import { env } from "@/app/env";
 import { createTRPClient } from "@repo/habit-tracker-data/client";
 
 export const APP_CONFIG = {
@@ -5,5 +6,5 @@ export const APP_CONFIG = {
 } as const;
 
 export const trpc = createTRPClient({
-	url: `${import.meta.env.VITE_API_SCHEMA}${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}${import.meta.env.VITE_API_BASE_PATH}`,
+	url: `${env.VITE_HABIT_TRACKER_API_SCHEMA}${env.VITE_HABIT_TRACKER_API_HOST}:${env.VITE_HABIT_TRACKER_API_PORT}${env.VITE_HABIT_TRACKER_API_BASE_PATH}`,
 });

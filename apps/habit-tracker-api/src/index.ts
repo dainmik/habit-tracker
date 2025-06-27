@@ -8,12 +8,12 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use(
-	env.API_BASE_PATH,
+	env.HABIT_TRACKER_API_BASE_PATH,
 	createAppRouterExpressMiddleware({
-		dbUrl: env.DB_URL,
+		dbUrl: env.HABIT_TRACKER_DATA_DATABASE_URL,
 	}),
 );
 
-app.listen(env.API_PORT, () => {
-	console.log(`Server running on port ${env.API_PORT}`);
+app.listen(env.HABIT_TRACKER_API_PORT, () => {
+	console.log(`Server running on port ${env.HABIT_TRACKER_API_PORT}`);
 });

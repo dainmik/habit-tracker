@@ -14,6 +14,7 @@
 	},
 	"packageManager": "pnpm@10.11.1",
 	"dependencies": {
+		"@repo/env": "workspace:*",
 		"@repo/habit-tracker-data": "workspace:*",
 		"cors": "^2.8.5",
 		"express": "^5.1.0",

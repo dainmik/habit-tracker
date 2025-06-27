@@ -1,8 +1,7 @@
 import { defineConfig } from "drizzle-kit";
+import { env } from "./src/env.ts";
 
-const dbUrl = process.env.DB_URL;
-
-if (!dbUrl) {
+if (!env.HABIT_TRACKER_DATA_DATABASE_URL) {
 	throw new Error("DB_URL environment variable is not set.");
 }
 
@@ -13,7 +12,7 @@ export default defineConfig({
 	dialect: "sqlite",
 	casing: "snake_case",
 	dbCredentials: {
-		url: dbUrl,
+		url: env.HABIT_TRACKER_DATA_DATABASE_URL,
 	},
 	verbose: true,
 	strict: true,

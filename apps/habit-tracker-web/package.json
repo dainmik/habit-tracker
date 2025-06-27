@@ -16,6 +16,7 @@
 	"dependencies": {
 		"@internationalized/date": "^3.8.2",
 		"@repo/date": "workspace:*",
+		"@repo/env": "workspace:*",
 		"@repo/habit-tracker-data": "workspace:*",
 		"@vee-validate/zod": "^4.15.1",
 		"@vueuse/core": "^13.3.0",

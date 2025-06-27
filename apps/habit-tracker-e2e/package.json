@@ -11,6 +11,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.52.0",
+		"@repo/env": "workspace:*",
 		"@repo/shared-config-eslint": "workspace:*",
 		"@repo/shared-config-typescript": "workspace:*",
 		"@types/node": "^22.15.29",
