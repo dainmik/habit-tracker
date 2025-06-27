@@ -1,0 +1,39 @@
+{
+	"private": true,
+	"name": "@repo/env",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"default": "./dist/index.js"
+		},
+		"./schema/*": {
+			"types": "./src/schema/*.ts",
+			"default": "./dist/schema/*.js"
+		}
+	},
+	"imports": {
+		"#*": "./dist/*.js"
+	},
+	"scripts": {
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"build": "tsc -p tsconfig.build.json",
+		"test-unit": "vitest run",
+		"test-unit:watch": "vitest watch",
+		"lint": "eslint . --max-warnings 0",
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@t3-oss/env-core": "^0.13.8",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"@repo/shared-config-eslint": "workspace:*",
+		"@repo/shared-config-typescript": "workspace:*",
+		"@repo/shared-config-vitest": "workspace:*",
+		"@vitest/coverage-istanbul": "^3.2.2",
+		"eslint": "^9.28.0",
+		"typescript": "^5.8.3",
+		"vitest": "^3.2.2"
+	}
+}
