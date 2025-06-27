@@ -3,7 +3,7 @@
 	"name": "@repo/habit-tracker-e2e",
 	"type": "module",
 	"scripts": {
-		"test-e2e": "playwright test",
+		"test-e2e": "../../scripts/with-env.sh ../../env/.env playwright test",
 		"type-check": "tsc --noEmit",
 		"lint": "eslint . --fix",
 		"format": "prettier --write src/",

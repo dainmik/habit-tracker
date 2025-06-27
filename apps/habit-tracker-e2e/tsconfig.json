@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
 
-		"allowImportingTsExtensions": true
+		"allowImportingTsExtensions": true,
+		"noEmit": true
 	},
 	"include": ["*.ts", "src"]
 }

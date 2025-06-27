@@ -1,4 +1,5 @@
 import { createEnv as _createEnv } from "@t3-oss/env-core";
+import { config } from "dotenv";
 
 export const createEnv: typeof _createEnv = (opts) =>
 	_createEnv({
@@ -17,3 +18,28 @@ export const createEnv: typeof _createEnv = (opts) =>
 		 */
 		emptyStringAsUndefined: true,
 	});
+
+interface LoadEnvOptions {
+	path?: string;
+}
+
+/**
+ * Load environment variables tofrom file to `process.env`
+ *
+ * This is a utility function that should only be used when there
+ * is no option to pass environment variables via CLI as part of
+ * running the app (e.g., Playwright VSCode extension).
+ *
+ * TODO: Add this functionality as part of `createEnv` API.
+ */
+export const __loadEnvFromFileInDevelopment = ({ path }: LoadEnvOptions) => {
+	const result = config({ path: path ?? "./" });
+
+	if (result.error || !result.parsed) {
+		// We don't want to interfer with non-development environments, so
+		// we don't throw an error.
+		return;
+	}
+
+	return result.parsed;
+};
