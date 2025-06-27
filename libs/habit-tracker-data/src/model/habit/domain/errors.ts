@@ -1,6 +1,20 @@
 import { HabitTrackerError } from "#model/common/error";
 import type { DateType } from "@repo/date";
 
+interface HabitWithoutNameErrorParams {
+	habitId: string;
+}
+
+export class HabitWithoutNameError extends HabitTrackerError {
+	habitId: string;
+
+	constructor({ habitId }: HabitWithoutNameErrorParams) {
+		super("Habit must have a name.");
+		this.name = "HabitWithoutNameError";
+		this.habitId = habitId;
+	}
+}
+
 interface ToggleHabitStatusErrorParams {
 	habitId: string;
 	date: DateType;

@@ -33,6 +33,7 @@ import {
 	WEEKDAYS,
 	type DateType,
 } from "@repo/date";
+import { HabitWithoutNameError } from "./errors.ts";
 
 const getWeekday = (date: Date) =>
 	date
@@ -40,7 +41,7 @@ const getWeekday = (date: Date) =>
 		.toLowerCase() as HabitScheduleWeekRepeat["daysOfWeek"][number];
 
 interface HabitProps {
-	id?: string | undefined;
+	id: string;
 	name: string;
 	schedule: HabitSchedule;
 }
@@ -63,7 +64,7 @@ export class Habit extends Entity {
 	_records: HabitRecord[];
 	_statusChanges: HabitStatusChange[];
 
-	constructor({ id, name, schedule }: HabitProps) {
+	private constructor({ id, name, schedule }: HabitProps) {
 		super(id);
 		this.name = name;
 		this.schedule = schedule;
@@ -73,8 +74,10 @@ export class Habit extends Entity {
 	}
 
 	static create({ id, name, schedule }: HabitProps) {
-		const habit = new Habit({ id, name, schedule });
-		return habit;
+		if (name.length === 0) {
+			throw new HabitWithoutNameError({ habitId: id });
+		}
+		return new Habit({ id, name, schedule });
 	}
 
 	canToggleCompletion(date: DateType) {

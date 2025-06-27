@@ -205,7 +205,7 @@ export const HabitAggregateSqlMapper: Mapper<
 		});
 		habitSchedule.id = schedule.id;
 
-		const entity = new Habit({
+		const entity = Habit.create({
 			id: habit.id,
 			name: habit.name,
 			schedule: habitSchedule,
