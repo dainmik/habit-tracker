@@ -4,6 +4,8 @@
 	"scripts": {
 		"build": "turbo run build",
 		"dev": "turbo run dev --continue",
+		"test-unit": "turbo run test-unit --continue",
+		"test-unit:watch": "turbo run test-unit:watch --continue",
 		"lint": "turbo run lint --continue",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"type-check": "turbo run type-check --continue"
