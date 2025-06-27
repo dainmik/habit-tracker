@@ -10,15 +10,13 @@
 			"outputs": [".next/**", "!.next/cache/**", "dist/**"]
 		},
 		"lint": {
-			"dependsOn": ["@repo/shared-config-vitest#build", "^lint"],
 			"env": ["CI"]
 		},
-		"type-check": {
-			"dependsOn": ["^type-check"]
-		},
+		"type-check": {},
 		"dev": {
 			"cache": false,
-			"persistent": true
+			"persistent": true,
+			"dependsOn": ["^build"]
 		},
 		"test-unit": {
 			"dependsOn": ["@repo/shared-config-vitest#build"],
