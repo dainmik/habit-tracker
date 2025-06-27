@@ -8,7 +8,8 @@
 		"test-unit:watch": "turbo run test-unit:watch --continue",
 		"lint": "turbo run lint --continue",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"type-check": "turbo run type-check --continue"
+		"type-check": "turbo run type-check --continue",
+		"clean": "./scripts/clean.sh"
 	},
 	"devDependencies": {
 		"prettier": "^3.5.3",

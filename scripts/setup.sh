@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 install_node() {
     TEMP_DIR=$(mktemp -d)
