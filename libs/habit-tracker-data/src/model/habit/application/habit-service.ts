@@ -39,16 +39,11 @@ export class HabitService {
 
 	async addHabit(item: HabitInputModel) {
 		const habit = HabitMapper.from(item, {});
-
-		console.log("INPUT:", item);
-		console.log("ADDING HABIT:", habit, habit.schedule.repeat?.duration);
-
 		await this.repository.add(habit);
 	}
 
 	async editHabit(id: ID, item: HabitInputModel) {
 		const habit = HabitMapper.from(item, { id });
-
 		await this.repository.update(habit);
 	}
 
