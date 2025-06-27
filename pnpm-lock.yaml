@@ -352,9 +352,6 @@ importers:
       '@eslint/js':
         specifier: ^9.28.0
         version: 9.28.0
-      '@repo/env':
-        specifier: workspace:*
-        version: link:../env
       '@repo/shared-config-typescript':
         specifier: workspace:*
         version: link:../shared-config-typescript
