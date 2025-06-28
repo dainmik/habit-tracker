@@ -75,6 +75,10 @@ export const esLintBaseConfig = tsEslint.config([
 
 			// https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/no-mutable-exports.md
 			"import-x/no-mutable-exports": "error",
+
+			// TypeScript’s compiler already ensures imports resolve correctly.
+			// https://github.com/un-ts/eslint-plugin-import-x/blob/v4.15.1/docs/rules/no-unresolved.md
+			"import-x/no-unresolved": "off",
 		},
 	},
 	{
