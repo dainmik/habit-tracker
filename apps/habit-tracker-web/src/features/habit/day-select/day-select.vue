@@ -98,7 +98,7 @@ const isButtonActive = (iso: IsoDateString) =>
 		<nav class="flex w-full items-center gap-2">
 			<button
 				title="See more earlier dates"
-				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
+				class="size-12 cursor-pointer rounded-md hover:scale-125 focus-visible:scale-125"
 				@click="scrollByPage('left')"
 			>
 				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0 rotate-180" />
@@ -131,7 +131,7 @@ const isButtonActive = (iso: IsoDateString) =>
 
 			<button
 				title="See more later dates"
-				class="size-12 rounded-md hover:scale-125 focus-visible:scale-125"
+				class="size-12 cursor-pointer rounded-md hover:scale-125 focus-visible:scale-125"
 				@click="scrollByPage('right')"
 			>
 				<Icon :icon="ICONS.arrowHeadRight" class="shrink-0" />

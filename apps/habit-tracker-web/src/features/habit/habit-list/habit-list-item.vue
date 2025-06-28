@@ -43,7 +43,7 @@ const iconInfo = (habit: HabitDTO) =>
 <template>
 	<button
 		ref="item"
-		class="h-full w-full rounded-2xl border"
+		class="h-full w-full cursor-pointer rounded-2xl border"
 		:title="habit.name"
 		:aria-label="habit.name"
 		:class="{
@@ -83,7 +83,7 @@ const iconInfo = (habit: HabitDTO) =>
 							? 'Mark habit as incomplete'
 							: 'Mark habit as complete'
 					"
-					class="transition-transform hover:scale-125 focus-visible:scale-125"
+					class="cursor-pointer transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onToggleCompleted(habit.id)"
 				>
 					<Icon
@@ -103,7 +103,7 @@ const iconInfo = (habit: HabitDTO) =>
 						<button
 							title="Edit habit"
 							aria-label="Edit habit"
-							class="transition-transform hover:scale-125 focus-visible:scale-125"
+							class="cursor-pointer transition-transform hover:scale-125 focus-visible:scale-125"
 							@click.stop="open"
 						>
 							<Icon :icon="ICONS.edit" class="text-2xl" />
@@ -123,7 +123,7 @@ const iconInfo = (habit: HabitDTO) =>
 							? 'Mark habit as inactive'
 							: 'Mark habit as active'
 					"
-					class="transition-transform hover:scale-125 focus-visible:scale-125"
+					class="cursor-pointer transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onToggleStatus(habit.id)"
 				>
 					<Icon
@@ -135,7 +135,7 @@ const iconInfo = (habit: HabitDTO) =>
 				<button
 					title="Delete habit"
 					aria-label="Delete habit"
-					class="transition-transform hover:scale-125 focus-visible:scale-125"
+					class="cursor-pointer transition-transform hover:scale-125 focus-visible:scale-125"
 					@click.stop="onDelete(habit.id)"
 				>
 					<Icon :icon="ICONS.delete" class="text-2xl text-red-500" />
