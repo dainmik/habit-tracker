@@ -15,6 +15,20 @@ export class HabitWithoutNameError extends HabitTrackerError {
 	}
 }
 
+interface HabitWithNameAlreadyExistsErrorParams {
+	habitName: string;
+}
+
+export class HabitWithNameAlreadyExistsError extends HabitTrackerError {
+	habitName: string;
+
+	constructor({ habitName }: HabitWithNameAlreadyExistsErrorParams) {
+		super(`Habit with name '${habitName}' already exists.`);
+		this.name = "HabitWithNameAlreadyExistsError";
+		this.habitName = habitName;
+	}
+}
+
 interface ToggleHabitStatusErrorParams {
 	habitId: string;
 	date: DateType;

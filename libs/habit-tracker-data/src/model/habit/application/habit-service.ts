@@ -2,6 +2,7 @@ import { type ID } from "#model/common/domain/entity";
 import type { HabitInputModel } from "#model/habit/application/habit-input-model";
 import {
 	HabitNotFoundError,
+	HabitWithNameAlreadyExistsError,
 	ToggleHabitCompletionError,
 	ToggleHabitStatusError,
 } from "#model/habit/domain/errors";
@@ -38,8 +39,18 @@ export class HabitService {
 	}
 
 	async addHabit(item: HabitInputModel) {
-		const habit = HabitMapper.from(item, {});
-		await this.repository.add(habit);
+		const habits = await this.repository.getAll();
+		const habitWithSameName = habits.find(
+			(habit) =>
+				habit.name.trim().toLowerCase() ===
+				item.name.trim().toLocaleLowerCase(),
+		);
+		if (habitWithSameName) {
+			throw new HabitWithNameAlreadyExistsError({ habitName: item.name });
+		}
+
+		const newHabit = HabitMapper.from(item, {});
+		await this.repository.add(newHabit);
 	}
 
 	async editHabit(id: ID, item: HabitInputModel) {
