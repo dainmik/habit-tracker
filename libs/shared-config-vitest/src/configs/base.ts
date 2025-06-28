@@ -14,7 +14,6 @@ export const baseConfig = defineConfig({
 				],
 				"text",
 			],
-			enabled: true,
 		},
 		exclude: [...configDefaults.exclude],
 	},
