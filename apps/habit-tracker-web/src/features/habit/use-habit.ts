@@ -1,5 +1,5 @@
 import { trpc } from "@/app/config";
-import { useBroadcastSync } from "@/features/habit/use-broadcast-sync";
+import { useBroadcastSync } from "@/common/composables/use-broadcast-sync";
 import type { DateType } from "@repo/date";
 import { convertDateToIso } from "@repo/date";
 import type { HabitDTO, HabitInputModel } from "@repo/habit-tracker-data/model";
