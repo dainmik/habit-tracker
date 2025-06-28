@@ -4,6 +4,7 @@
 	"scripts": {
 		"build": "turbo run build",
 		"dev": "turbo run dev --continue",
+		"start": "turbo run start",
 		"test-unit": "turbo run test-unit --continue",
 		"test-unit:watch": "turbo run test-unit:watch --continue",
 		"lint": "turbo run lint --continue",

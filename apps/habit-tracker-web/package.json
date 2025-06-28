@@ -4,8 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "../../scripts/with-env.sh ../../env/.env vite",
-		"build": "run-p type-check \"build-only {@}\" --",
+		"build": "../../scripts/with-env.sh ../../env/.env run-p type-check \"build-only {@}\" --",
 		"preview": "vite preview",
+		"start": "vite preview",
 		"test-unit": "vitest run",
 		"test-unit:watch": "vitest watch",
 		"build-only": "vite build",

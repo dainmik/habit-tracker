@@ -18,6 +18,11 @@
 			"persistent": true,
 			"dependsOn": ["^build"]
 		},
+		"start": {
+			"dependsOn": ["build"],
+			"persistent": true,
+			"cache": false
+		},
 		"test-unit": {
 			"dependsOn": ["@repo/shared-config-vitest#build"],
 			"outputs": ["coverage.json"]
