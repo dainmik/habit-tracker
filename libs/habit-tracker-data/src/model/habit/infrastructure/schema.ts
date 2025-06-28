@@ -3,7 +3,7 @@ import { HABIT_STATUS } from "#model/habit/domain/habit-status-change";
 import type { Weekday } from "@repo/date";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-const id = text().unique().primaryKey().notNull();
+const id = text().primaryKey().notNull();
 
 export const habits = sqliteTable("habits", {
 	id,
