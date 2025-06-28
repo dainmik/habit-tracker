@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euxo pipefail
 
 install_node() {
     TEMP_DIR=$(mktemp -d)
@@ -17,7 +17,14 @@ install_pnpm() {
     # See: https://pnpm.io/installation#using-corepack
     sudo npm install --global corepack@latest
     corepack enable pnpm
-    yes | pnpm -v
+	# We use `set -e` to cause the script to exit immediately if any command fails.
+	# When `pnpm -v` finishes, `yes` receives SIGPIPE when it tries to write
+	# to the now-closed pipe. This causes `yes` to exit with non-zero status
+	# due to broken pipe, which triggers `set -e` and makes the whole script exit.
+	#
+	# `pnpm -v || true` means: if command returns non-zero exit code, run true, which
+	# always returns zero exit code.
+    yes | pnpm -v || true
 }
 
 install_turbo() {
