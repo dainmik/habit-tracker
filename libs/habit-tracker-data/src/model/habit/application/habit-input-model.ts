@@ -2,6 +2,7 @@ import { convertDateToIso, getDate, WEEKDAYS } from "@repo/date";
 import { z } from "zod";
 
 const WeekdaySchema = z.enum(WEEKDAYS);
+export const MAX_HABIT_NUMBER_INPUT_VALUE = 32_767; // Max value of SMALLINT (PostgreSQL numeric type). We don't need larger values for the numeric fields in this schema.
 
 const DurationSchema = z.discriminatedUnion("type", [
 	z.object({ type: z.literal("forever") }),
@@ -13,7 +14,11 @@ const DurationSchema = z.discriminatedUnion("type", [
 	}),
 	z.object({
 		type: z.literal("afterOccurrences"),
-		afterOccurrences: z.coerce.number().int().min(1),
+		afterOccurrences: z.coerce
+			.number()
+			.int()
+			.min(1)
+			.max(MAX_HABIT_NUMBER_INPUT_VALUE),
 	}),
 ]);
 export type HabitScheduleDurationInputModel = z.infer<typeof DurationSchema>;
@@ -21,7 +26,12 @@ export type HabitScheduleDurationInputModel = z.infer<typeof DurationSchema>;
 export const DayRepeatInputSchema = z.object({
 	type: z.literal("day"),
 	duration: DurationSchema,
-	everyNumberOfDays: z.number().int().min(1).default(1),
+	everyNumberOfDays: z
+		.number()
+		.int()
+		.min(1)
+		.max(MAX_HABIT_NUMBER_INPUT_VALUE)
+		.default(1),
 });
 export type HabitScheduleDayRepeatInputModel = z.infer<
 	typeof DayRepeatInputSchema
@@ -30,7 +40,12 @@ export type HabitScheduleDayRepeatInputModel = z.infer<
 const WeekRepeatInputSchema = z.object({
 	type: z.literal("week"),
 	duration: DurationSchema,
-	everyNumberOfWeeks: z.number().int().min(1).default(1),
+	everyNumberOfWeeks: z
+		.number()
+		.int()
+		.min(1)
+		.max(MAX_HABIT_NUMBER_INPUT_VALUE)
+		.default(1),
 	daysOfWeek: z
 		.array(WeekdaySchema)
 		.nonempty("Please choose at least one day of the week."),

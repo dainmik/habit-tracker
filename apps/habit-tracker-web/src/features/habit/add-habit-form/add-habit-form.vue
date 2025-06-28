@@ -25,6 +25,7 @@ import { addMonths } from "@repo/date";
 import {
 	DayRepeatInputSchema,
 	HabitInputSchema,
+	MAX_HABIT_NUMBER_INPUT_VALUE,
 	type HabitInputModel,
 } from "@repo/habit-tracker-data/model";
 import { toTypedSchema } from "@vee-validate/zod";
@@ -260,6 +261,8 @@ watch(
 								input-id="repeatEvery"
 								type="number"
 								name="repeatEvery"
+								:min="1"
+								:max="MAX_HABIT_NUMBER_INPUT_VALUE"
 							/>
 						</FormControl>
 						<FormMessage />
@@ -277,6 +280,8 @@ watch(
 								input-id="repeatEvery"
 								type="number"
 								name="repeatEvery"
+								:min="1"
+								:max="MAX_HABIT_NUMBER_INPUT_VALUE"
 							/>
 						</FormControl>
 						<FormMessage />
@@ -373,9 +378,12 @@ watch(
 						<FormControl>
 							<Input
 								v-model="afterOccurrencesValue"
+								type="number"
 								input-id="occurrenceCount"
 								name="occurrenceCount"
 								aria-label="Repeat until times completed"
+								:min="1"
+								:max="MAX_HABIT_NUMBER_INPUT_VALUE"
 							/>
 						</FormControl>
 						<FormMessage />
@@ -407,6 +415,6 @@ watch(
 
 		<!-- A display: none, disabled submit input prevents implicit submission of the form when user presses enter while not focused on the submit button. -->
 		<input type="submit" disabled class="hidden" aria-hidden="true" />
-		<Button type="submit">OK</Button>
+		<Button type="submit">Save changes</Button>
 	</form>
 </template>
