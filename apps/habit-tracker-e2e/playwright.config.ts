@@ -16,7 +16,7 @@ import { env } from "./env.ts";
 export default defineConfig({
 	testDir: "./src",
 	/* Maximum time one test can run for. */
-	timeout: 30 * 1000,
+	timeout: 15 * 1000,
 	expect: {
 		/**
 		 * Maximum time expect() should wait for the condition to be met.
@@ -26,7 +26,7 @@ export default defineConfig({
 	},
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: !!env.CI,
-	/* Retry on CI only */
+	fullyParallel: true,
 	retries: env.CI ? 2 : 0,
 	/* Opt out of parallel tests on CI. */
 	workers: env.CI ? 1 : undefined,
@@ -43,7 +43,7 @@ export default defineConfig({
 		trace: "on-first-retry",
 
 		/* Only on CI systems run the tests headless */
-		headless: !!env.CI,
+		// headless: !!env.CI,
 	},
 
 	/* Configure projects for major browsers */
@@ -100,16 +100,16 @@ export default defineConfig({
 	// outputDir: 'test-results/',
 
 	/* Run your local dev server before starting the tests */
-	webServer: {
-		/**
-		 * Use the dev server by default for faster feedback loop.
-		 * Use the preview server on CI for more realistic testing.
-		 * Playwright will re-use the local server if there is already a dev-server running.
-		 */
-		command: env.CI
-			? "pnpm --filter @repo/habit-tracker-web preview"
-			: "pnpm --filter @repo/habit-tracker-web dev",
-		port: env.HABIT_TRACKER_WEB_PORT,
-		reuseExistingServer: !env.CI,
-	},
+	// webServer: {
+	// 	/**
+	// 	 * Use the dev server by default for faster feedback loop.
+	// 	 * Use the preview server on CI for more realistic testing.
+	// 	 * Playwright will re-use the local server if there is already a dev-server running.
+	// 	 */
+	// 	command: env.CI
+	// 		? "pnpm --filter @repo/habit-tracker-web preview"
+	// 		: "pnpm --filter @repo/habit-tracker-web dev",
+	// 	port: env.HABIT_TRACKER_WEB_PORT,
+	// 	reuseExistingServer: !env.CI,
+	// },
 });
