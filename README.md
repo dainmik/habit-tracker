@@ -39,7 +39,9 @@ The project was tested to work on Linux and [Windows Subsystem for Linux](https:
 
 The project requires certain software to be installed. For the quickest and best results, I recommend using [Visual Studio Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/tutorial). If you're using a dev container, the required software will be installed in the dev container automatically. If you're not using a dev container, inspect and run the [scripts/setup.sh](./scripts/setup.sh) script to install the required software.
 
-1. Clone the repository.
+### Step 1
+
+1. Clone the repository (preferably in a dev container).
 1. (_When not using a dev container_) Inspect and run the [scripts/setup.sh](./scripts/setup.sh) executable:
    ```sh
    ./scripts/setup.sh
@@ -50,10 +52,66 @@ The project requires certain software to be installed. For the quickest and best
    pnpm install
    ```
 
-# Use
+### Step 2
 
-- To develop the app, run the dev script from the workspace root:
+1. Generate a local database:
 
-  ```sh
-  turbo dev
-  ```
+   ```sh
+   pnpm --filter @repo/habit-tracker-data run db-push
+   ```
+
+1. Choose "**Yes, I want to execute all statements**"
+
+   A `local.db` file will be generated at the root of the workspace.
+
+### Step 3
+
+Build and run the project:
+
+1. Run:
+
+   ```sh
+   pnpm start
+   ```
+
+1. Wait until a green checkmark appears next to the `@repo/habit-tracker-web#build` in the terminal
+
+### Step 4
+
+Visit http://localhost:4173 in your browser to use the app.
+
+> NOTE: If the app is inaccessible at http://localhost:4173, navigate in the terminal to `@repo/habit-tracker-web#start` to see its log output. Once navigated to it, the app should become accessible.
+
+## Use
+
+### Unit tests
+
+Unit tests can be found in [libs/habit-tracker-data/src/model/habit/domain/habit.test.ts](./libs/habit-tracker-data/src/model/habit/domain/habit.test.ts).
+
+To run unit tests, run `pnpm --filter @repo/habit-tracker-data test-unit`
+
+### End-2-end tests
+
+E2E tests can be found in [apps/habit-tracker-e2e/src](./apps/habit-tracker-e2e/src).
+
+You can run e2e tests in `dev` or in `preview` (after building the app).
+
+#### Run E2E in Dev:
+
+To run e2e tests in `dev`:
+
+- run `pnpm dev`
+- run `pnpm --filter @repo/habit-tracker-e2e test-e2e`
+
+#### Run E2E in Preview:
+
+To run e2e tests in `preview`:
+
+- in [env/.env](./env/.env) file, change `HABIT_TRACKER_WEB_PORT` environment variable value from `5173` to `4173`
+- run `pnpm start`
+- run `pnpm --filter @repo/habit-tracker-e2e test-e2e`
+
+## Other commands of interest
+
+- `pnpm lint`
+- `pnpm type-check`

@@ -1,30 +1,5 @@
 # Habit Tracker
 
-## Install
-
-To install it, use [pnpm](https://pnpm.io/).
-
-1. Clone the repository.
-1. Install packages:
-
-   ```sh
-   pnpm install
-   ```
-
-# Use
-
-- To develop the app, run the dev script:
-
-  ```sh
-  pnpm dev
-  ```
-
-- To use the app, first build it and then run the preview script:
-
-  ```sh
-  pnpm build && pnpm preview
-  ```
-
 ## Feature Roadmap
 
 Some important features that would improve the UX and the robustness of the app were cut to fit into the deadline:
