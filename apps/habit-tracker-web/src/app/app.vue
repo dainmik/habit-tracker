@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { APP_CONFIG } from "@/app/config";
-import { ThemeSwitcher } from "@/components/ui/theme-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { useTitle } from "@vueuse/core";
 import { RouterLink, RouterView } from "vue-router";
 

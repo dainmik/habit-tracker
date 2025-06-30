@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Label } from "@/components/ui/label";
+import { Label } from "@/components/label";
 import { cn } from "@/lib/utils";
 import type { LabelProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";

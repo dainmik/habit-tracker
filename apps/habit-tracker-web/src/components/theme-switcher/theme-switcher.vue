@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/dropdown-menu";
 import { ICONS } from "@/lib/icons";
 import { Icon } from "@iconify/vue";
 import { useColorMode } from "@vueuse/core";

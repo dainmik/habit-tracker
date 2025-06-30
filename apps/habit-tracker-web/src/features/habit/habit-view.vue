@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button";
 import AddHabitFormDrawer from "@/features/habit/add-habit-form/add-habit-form-drawer.vue";
 import DaySelect from "@/features/habit/day-select/day-select.vue";
 import HabitListItem from "@/features/habit/habit-list/habit-list-item.vue";

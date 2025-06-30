@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { toggleVariants } from "@/components/ui/toggle";
+import type { toggleVariants } from "@/components/toggle";
 import { cn } from "@/lib/utils";
 import { reactiveOmit } from "@vueuse/core";
 import type { VariantProps } from "class-variance-authority";

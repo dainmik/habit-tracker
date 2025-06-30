@@ -7,13 +7,9 @@ import {
 } from "@internationalized/date";
 import { CalendarIcon } from "lucide-vue-next";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import { Button } from "@/components/button";
+import { Calendar } from "@/components/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { cn } from "@/lib/utils";
 import { convertDateToIso, parseISO, type DateType } from "@repo/date";
 import { onMounted, ref, watch } from "vue";

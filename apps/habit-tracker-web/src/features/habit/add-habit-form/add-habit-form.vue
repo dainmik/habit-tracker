@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/date-picker";
+import { Button } from "@/components/button";
+import { DatePicker } from "@/components/date-picker";
 import {
 	FormControl,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import Label from "@/components/ui/label/label.vue";
+} from "@/components/form";
+import { Input } from "@/components/input";
+import Label from "@/components/label/label.vue";
 import {
 	Select,
 	SelectContent,
@@ -17,9 +17,9 @@ import {
 	SelectItemText,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import Switch from "@/components/ui/switch/switch.vue";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+} from "@/components/select";
+import Switch from "@/components/switch/switch.vue";
+import { ToggleGroup, ToggleGroupItem } from "@/components/toggle-group";
 import type { DateType } from "@repo/date";
 import { addMonths } from "@repo/date";
 import {

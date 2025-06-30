@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DrawerDialog from "@/components/ui/drawer-dialog/drawer-dialog.vue";
+import DrawerDialog from "@/components/drawer-dialog/drawer-dialog.vue";
 import AddHabitForm from "@/features/habit/add-habit-form/add-habit-form.vue";
 import type { DateType } from "@repo/date";
 import type { HabitInputModel } from "@repo/habit-tracker-data/model";

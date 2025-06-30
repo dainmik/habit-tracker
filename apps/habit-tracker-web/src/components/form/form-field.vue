@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { FORM_FIELD_INJECTION_KEY } from "@/components/ui/form/injection-keys";
+import { FORM_FIELD_INJECTION_KEY } from "@/components/form/injection-keys";
 import { cn } from "@/lib/utils";
 import { useField, type FieldOptions } from "vee-validate";
 import { provide, type HTMLAttributes } from "vue";

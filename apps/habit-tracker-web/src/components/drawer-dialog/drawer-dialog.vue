@@ -5,7 +5,7 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/dialog";
 import {
 	Drawer,
 	DrawerContent,
@@ -13,7 +13,7 @@ import {
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
-} from "@/components/ui/drawer";
+} from "@/components/drawer";
 import { useMediaQuery } from "@vueuse/core";
 import { ref } from "vue";
 

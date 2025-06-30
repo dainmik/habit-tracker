@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-	RovingFocusGroup,
-	RovingFocusItem,
-} from "@/components/ui/roving-focus";
+import { RovingFocusGroup, RovingFocusItem } from "@/components/roving-focus";
 import DayButton from "@/features/habit/day-select/day-button.vue";
 import { useDateRange } from "@/features/habit/day-select/use-date-range";
 import { useInfiniteScroll } from "@/features/habit/day-select/use-infinite-scroll";
