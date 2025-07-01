@@ -413,8 +413,6 @@ watch(
 			</div>
 		</div>
 
-		<!-- A display: none, disabled submit input prevents implicit submission of the form when user presses enter while not focused on the submit button. -->
-		<input type="submit" disabled class="hidden" aria-hidden="true" />
 		<Button type="submit">Save changes</Button>
 	</form>
 </template>
