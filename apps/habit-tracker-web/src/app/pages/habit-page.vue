@@ -11,13 +11,12 @@ const route = useRoute();
 watch(
 	() => route.params.date,
 	(newDate) => {
-		if (typeof newDate === "string" && newDate && !isValid(newDate)) {
+		if (typeof newDate === "object" || (newDate && !isValid(newDate))) {
 			currentDate.value = undefined;
-		} else {
-			currentDate.value = newDate
-				? parseISO(newDate as string)
-				: startOfToday();
+			return;
 		}
+
+		currentDate.value = newDate ? parseISO(newDate) : startOfToday();
 	},
 	{ immediate: true },
 );

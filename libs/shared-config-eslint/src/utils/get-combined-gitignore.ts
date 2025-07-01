@@ -37,7 +37,7 @@ export const getCombinedGitignoreConfig = () => {
 
 	const ignoreSet = new Set<string>(
 		gitignorePaths
-			.map((filepath) => includeIgnoreFile(filepath) as IncludeIgnoreFileResult)
+			.map((filepath) => includeIgnoreFile(filepath))
 			.flatMap((result) => result.ignores ?? []),
 	);
 

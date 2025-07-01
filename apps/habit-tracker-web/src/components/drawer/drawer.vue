@@ -3,14 +3,14 @@ import { useForwardPropsEmits } from "reka-ui";
 import type { DrawerRootEmits, DrawerRootProps } from "vaul-vue";
 import { DrawerRoot } from "vaul-vue";
 
-const props = withDefaults(defineProps<DrawerRootProps>(), {
+// Not sure why TypeScript infers props as never here.
+const props: DrawerRootProps = withDefaults(defineProps<DrawerRootProps>(), {
 	shouldScaleBackground: true,
 });
 
 const emits = defineEmits<DrawerRootEmits>();
 
-// 'as object' cast fixes 'Spread types may only be created from object types.ts-plugin(2698)' error in the template 'v-bind="forwarded"'
-const forwarded = useForwardPropsEmits(props, emits) as object;
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
