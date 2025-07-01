@@ -219,20 +219,26 @@ describe("Habit", () => {
 		});
 
 		it("throws if cannot toggle status", () => {
-			const pastDate = yesterday;
 			expect(() => {
-				habit.toggleStatus(pastDate);
+				habit.toggleStatus(yesterday);
 			}).toThrow();
 		});
 
 		it("toggles status from active to paused", () => {
+			expect(habit.getStatusOn(today)).toBe("active");
+
 			habit.toggleStatus(today);
+
 			expect(habit.getStatusOn(today)).toBe("paused");
 		});
 
 		it("toggles status from paused to active", () => {
 			habit.toggleStatus(today);
+
+			expect(habit.getStatusOn(today)).toBe("paused");
+
 			habit.toggleStatus(today);
+
 			expect(habit.getStatusOn(today)).toBe("active");
 		});
 
