@@ -54,9 +54,11 @@ test.describe("Habit Tracking App", () => {
 
 	test("Creates and deletes a habit", async ({ page }) => {
 		await addHabit(page, habitName);
+
 		await expect(page.locator(`text=${habitName}`)).toBeVisible();
 
 		await removeHabit(page, habitName);
+
 		await expect(page.locator(`text=${habitName}`)).not.toBeVisible();
 	});
 
@@ -64,6 +66,7 @@ test.describe("Habit Tracking App", () => {
 		await addHabit(page, habitName);
 
 		await clickOnHabit(page, habitName);
+
 		await expect(page.getByLabel("Mark habit as complete")).toBeVisible();
 		await expect(page.getByLabel("Edit habit")).toBeVisible();
 		await expect(page.getByLabel("Delete habit")).toBeVisible();
@@ -71,24 +74,23 @@ test.describe("Habit Tracking App", () => {
 
 	test("Edits the habit", async ({ page }) => {
 		await addHabit(page, habitName);
-
 		await clickOnHabit(page, habitName);
 		await page.getByRole("button", { name: "Edit habit" }).click();
-
 		habitName = `Updated Habit ${crypto.randomUUID()}`;
 		await page.getByLabel("Name").fill(habitName);
-		await page.getByRole("button", { name: "Save changes" }).click();
-		await clickOnHabit(page, habitName);
 
+		await page.getByRole("button", { name: "Save changes" }).click();
+
+		await clickOnHabit(page, habitName);
 		await expect(page.locator(`text=${habitName}`)).toBeVisible();
 	});
 
 	test("Toggles habit completion status", async ({ page }) => {
 		await addHabit(page, habitName);
-
 		await clickOnHabit(page, habitName);
 
 		await page.getByRole("button", { name: "Mark habit as complete" }).click();
+
 		await expect(
 			page.getByRole("button", { name: "Mark habit as incomplete" }),
 		).toBeVisible();
@@ -96,6 +98,7 @@ test.describe("Habit Tracking App", () => {
 		await page
 			.getByRole("button", { name: "Mark habit as incomplete" })
 			.click();
+
 		await expect(
 			page.getByRole("button", { name: "Mark habit as complete" }),
 		).toBeVisible();
@@ -103,15 +106,16 @@ test.describe("Habit Tracking App", () => {
 
 	test("Toggles habit active status", async ({ page }) => {
 		await addHabit(page, habitName);
-
 		await clickOnHabit(page, habitName);
 
 		await page.getByRole("button", { name: "Mark habit as inactive" }).click();
+
 		await expect(
 			page.getByRole("button", { name: "Mark habit as active" }),
 		).toBeVisible();
 
 		await page.getByRole("button", { name: "Mark habit as active" }).click();
+
 		await expect(
 			page.getByRole("button", { name: "Mark habit as inactive" }),
 		).toBeVisible();
