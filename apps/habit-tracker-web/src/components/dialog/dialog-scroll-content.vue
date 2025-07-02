@@ -32,7 +32,12 @@ const forwarded = useForwardPropsEmits(props, emits);
 				@pointer-down-outside="
 					(event) => {
 						const originalEvent = event.detail.originalEvent;
-						const target = originalEvent.target as HTMLElement;
+						// Vue docs recommend to type-assert EventTarget, which is suboptimal
+						// but will work for now
+						// https://vuejs.org/guide/typescript/options-api#typing-event-handlers
+						const target = originalEvent.target as HTMLElement | null;
+						if (!target) return;
+
 						if (
 							originalEvent.offsetX > target.clientWidth ||
 							originalEvent.offsetY > target.clientHeight

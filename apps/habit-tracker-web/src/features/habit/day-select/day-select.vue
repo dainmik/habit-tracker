@@ -64,8 +64,12 @@ const scrollByPage = (direction: "left" | "right") => {
 
 	if (!container || !items?.length) return;
 
+	const childElement = items[0];
+
+	if (!childElement) return;
+
 	// We assume all buttons have equal width
-	const childWidth = (items[0] as HTMLElement).offsetWidth;
+	const childWidth = childElement.offsetWidth;
 
 	const visibleCount = Math.floor(container.clientWidth / childWidth);
 
